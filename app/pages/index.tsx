@@ -1,16 +1,22 @@
 import { PlayIcon } from '@heroicons/react/solid';
+import { Post } from '@shared/types/post';
+import { User } from '@shared/types/user';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { ReactElement } from 'react';
 import Layout from '../components/layout';
 import PostCard from '../components/post-card';
 import TrendUserList from '../components/trend-user-list';
+import { mockTrendPosts } from '../lib/mock';
 import { NextPageWithLayout } from './_app';
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps<{
+  trendPosts: Post[];
+  trendUsers: User[];
+}> = async (context) => {
   return {
-    revalidate: 1000,
+    revalidate: 6000,
     props: {
-      trendPosts: [],
+      trendPosts: mockTrendPosts,
       trendUsers: [],
     },
   };

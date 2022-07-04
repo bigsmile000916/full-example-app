@@ -9,23 +9,23 @@ import {
   UserIcon,
 } from '@heroicons/react/outline';
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 
 const items = [
   {
     icon: HomeIcon,
     label: 'Home',
     href: '/',
-    active: true,
   },
   {
     icon: RssIcon,
     label: 'News',
-    href: '/',
+    href: '/news',
   },
   {
     icon: HeartIcon,
     label: 'Likes',
-    href: '/',
+    href: '/likes',
   },
   {
     icon: UserIcon,
@@ -40,8 +40,10 @@ const items = [
 ];
 
 const SideNav = () => {
+  const router = useRouter();
+
   return (
-    <div className="bg-slate-800 shadow p-12 text-white h-screen sticky top-0">
+    <div className="bg-slate-800 shadow p-12 text-white h-screen overflow-auto sticky top-0">
       <div className="overflow-auto flex min-h-full flex-col">
         <p className="mb-10 font-bold text-2xl">
           <img src="/logo.svg" alt="Logo" />
@@ -55,7 +57,7 @@ const SideNav = () => {
                   <a
                     className={classNames(
                       'flex items-center space-x-4 py-4',
-                      item.active
+                      router.pathname === item.href
                         ? 'text-blue-500'
                         : 'text-slate-400 hover:text-blue-200'
                     )}
