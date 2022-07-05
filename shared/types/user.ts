@@ -6,4 +6,5 @@ export type User = {
   description: string;
   followerCount: number;
   followCount: number;
+  createdAt: number;
 };

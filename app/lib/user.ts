@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { User } from '@shared/types/user';
+import { useRouter } from 'next/router';
 import useSWR from 'swr/immutable';
+import { useAuth } from '../context/auth';
 
 export const useTrendUsers = () => {
   const { data, error } = useSWR<User[]>('/trend-users', () => {

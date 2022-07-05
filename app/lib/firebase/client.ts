@@ -1,5 +1,5 @@
 import { initializeApp, getApps } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+import { Analytics, getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
 import { getFunctions } from 'firebase/functions';
 import { getAuth } from 'firebase/auth';
@@ -15,11 +15,15 @@ const firebaseConfig = {
   measurementId: 'G-92ER7GLHCL',
 };
 
+export let ga: Analytics;
+
 if (!getApps().length) {
   initializeApp(firebaseConfig);
+  if (typeof window !== 'undefined' && 'measurementId' in firebaseConfig) {
+    ga = getAnalytics();
+  }
 }
 
-export const analytics = getAnalytics();
 export const db = getFirestore();
 export const functions = getFunctions();
 export const auth = getAuth();

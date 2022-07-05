@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 
 import '../styles/globals.css';
+import { AuthProvider } from '../context/auth';
 
 export type NextPageWithLayout<T = {}> = NextPage<T> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -16,8 +17,10 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    <div className="text-slate-200">
-      {getLayout(<Component {...pageProps} />)}
-    </div>
+    <AuthProvider>
+      <div className="text-slate-200">
+        {getLayout(<Component {...pageProps} />)}
+      </div>
+    </AuthProvider>
   );
 }

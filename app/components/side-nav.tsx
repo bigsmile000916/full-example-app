@@ -10,8 +10,9 @@ import {
 } from '@heroicons/react/outline';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
+import SideNavItem from './side-nav-item';
 
-const items = [
+const mainItems = [
   {
     icon: HomeIcon,
     label: 'Home',
@@ -39,41 +40,49 @@ const items = [
   },
 ];
 
+const subItems = [
+  {
+    label: 'About',
+    href: '/about',
+  },
+  {
+    label: 'Terms of service',
+    href: '/terms',
+  },
+  {
+    label: 'Privacy policy',
+    href: '/privacy',
+  },
+  {
+    label: 'Contact',
+    href: '/contact',
+  },
+];
+
 const SideNav = () => {
   const router = useRouter();
 
   return (
     <div className="bg-slate-800 shadow p-12 text-white h-screen overflow-auto sticky top-0">
       <div className="overflow-auto flex min-h-full flex-col">
-        <p className="mb-10 font-bold text-2xl">
-          <img src="/logo.svg" alt="Logo" />
+        <p className="mb-10">
+          <img src="/logo.svg" className="block h-8" alt="Logo" />
         </p>
 
         <div className="flex-1">
           <ul className="space-y-2">
-            {items.map((item) => (
-              <li key={item.label}>
-                <Link href={item.href}>
-                  <a
-                    className={classNames(
-                      'flex items-center space-x-4 py-4',
-                      router.pathname === item.href
-                        ? 'text-blue-500'
-                        : 'text-slate-400 hover:text-blue-200'
-                    )}
-                  >
-                    <item.icon className="w-5 h-5" />
-                    <span>{item.label}</span>
-                  </a>
-                </Link>
-              </li>
+            {mainItems.map((item) => (
+              <SideNavItem item={item} key={item.href} />
             ))}
           </ul>
           <ul className="mt-6 border-t border-slate-700 py-8 space-y-3 text-slate-500">
-            <li>About</li>
-            <li>Terms of service</li>
-            <li>Privacy policy</li>
-            <li>Contact</li>
+            {subItems.map((item) => (
+              <li key={item.label}>
+                <Link href={item.href}>
+                  <a>{item.label}</a>
+                </Link>
+              </li>
+            ))}
           </ul>
           <p className="text-sm text-slate-600">
             © 2022 nino. All rights reserved.

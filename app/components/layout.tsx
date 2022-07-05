@@ -11,8 +11,10 @@ const Layout: FC<{
       <div className="w-80">
         <SideNav />
       </div>
-      <div className="flex-1 container py-8 space-y-6">
-        <Header />
+      <div className="flex-1 overflow-hidden">
+        <div className="my-6">
+          <Header />
+        </div>
         <main>{children}</main>
       </div>
     </div>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import Layout from '../components/layout';
+import { NextPageWithLayout } from './_app';
 
-const Contact = () => {
+const Contact: NextPageWithLayout = () => {
   const {
     register,
     formState: { errors },
@@ -52,6 +54,10 @@ const Contact = () => {
       </form>
     </div>
   );
+};
+
+Contact.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
 };
 
 export default Contact;
