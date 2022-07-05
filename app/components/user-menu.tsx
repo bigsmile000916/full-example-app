@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
+import Link from 'next/link';
 import { Fragment } from 'react';
 import { logout, useRequireAuth } from '../lib/auth';
 
@@ -36,6 +37,20 @@ const UserMenu = () => {
                 >
                   Edit
                 </button>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <Link href="/settings">
+                  <a
+                    className={classNames(
+                      active && 'bg-blue-500 text-white',
+                      'group flex w-full items-center rounded-md px-2 py-2 text-sm'
+                    )}
+                  >
+                    Settings
+                  </a>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>

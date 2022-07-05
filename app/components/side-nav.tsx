@@ -11,6 +11,7 @@ import {
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import SideNavItem from './side-nav-item';
+import Image from 'next/image';
 
 const mainItems = [
   {
@@ -32,11 +33,6 @@ const mainItems = [
     icon: UserIcon,
     label: 'Profile',
     href: '/profile',
-  },
-  {
-    icon: CogIcon,
-    label: 'Settings',
-    href: '/settings',
   },
 ];
 
@@ -66,7 +62,17 @@ const SideNav = () => {
     <div className="bg-slate-800 shadow p-12 text-white h-screen overflow-auto sticky top-0">
       <div className="overflow-auto flex min-h-full flex-col">
         <p className="mb-10">
-          <img src="/logo.svg" className="block h-8" alt="Logo" />
+          <Link href="/">
+            <a className="h-10 block relative">
+              <Image
+                src="/logo.svg"
+                layout="fill"
+                alt="Logo"
+                objectPosition="left"
+                objectFit="contain"
+              />
+            </a>
+          </Link>
         </p>
 
         <div className="flex-1">
