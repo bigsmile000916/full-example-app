@@ -31,7 +31,7 @@ const Home: NextPageWithLayout<
         <div className="col-span-3 xl:col-span-2">
           <div className="aspect-[16/6] bg-[url(https://cdn.pixabay.com/photo/2021/05/14/08/44/running-6252827_1280.jpg)] bg-cover bg-center rounded-3xl relative flex items-center px-20 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-pink-700"></div>
-            <div className="relative z-10">
+            <div className="relative">
               <h2 className="text-white font-bold text-4xl mb-8">
                 Lorem ipsum dolor sit.
               </h2>

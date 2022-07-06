@@ -9,7 +9,7 @@ const Notification = () => {
         <BellIcon className="w-5 h-5 text-slate-300" />
       </Popover.Button>
 
-      <Popover.Panel className="absolute mt-2 z-10 right-0 bg-slate-800 p-4 w-72 origin-top-right shadow-lg rounded-md">
+      <Popover.Panel className="absolute mt-2 right-0 bg-slate-800 p-4 w-72 origin-top-right shadow-lg rounded-md">
         <ul>
           <li>item</li>
           <li>item</li>

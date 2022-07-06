@@ -15,7 +15,7 @@ const Layout: FC<{
         <div className="my-6">
           <Header />
         </div>
-        <main>{children}</main>
+        <main className="relative">{children}</main>
       </div>
     </div>
   );
