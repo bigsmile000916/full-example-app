@@ -5,27 +5,27 @@ const useFormGuard = (isDirty: boolean) => {
   const router = useRouter();
   const message = 'OK?';
 
-  const pageChangeHandler = (
-    url: string,
-    { shallow }: { shallow: boolean }
-  ) => {
-    if (!shallow) {
-      const answer = window.confirm(message);
-      if (!answer) {
-        router.events.emit('routeChangeError', 'キャンセルされました', url, {
-          shallow,
-        });
-        throw 'キャンセルされました';
-      }
-    }
-  };
-
   const beforeUnloadhandler = (event: BeforeUnloadEvent) => {
     event.preventDefault();
     event.returnValue = message;
   };
 
   useEffect(() => {
+    const pageChangeHandler = (
+      url: string,
+      { shallow }: { shallow: boolean }
+    ) => {
+      if (!shallow) {
+        const answer = window.confirm(message);
+        if (!answer) {
+          router.events.emit('routeChangeError', 'キャンセルされました', url, {
+            shallow,
+          });
+          throw 'キャンセルされました';
+        }
+      }
+    };
+
     if (isDirty) {
       router.events.on('routeChangeStart', pageChangeHandler);
       window.addEventListener('beforeunload', beforeUnloadhandler);
