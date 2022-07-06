@@ -7,7 +7,7 @@ import { useAuth } from '../context/auth';
 export const useTrendUsers = () => {
   const { data, error } = useSWR<User[]>('/trend-users', () => {
     return [...new Array(5)].map((_) => {
-      return {
+      const user: User = {
         id: faker.datatype.uuid(),
         handleName: faker.internet.userName(),
         name: faker.name.findName(),
@@ -15,7 +15,10 @@ export const useTrendUsers = () => {
         description: faker.lorem.paragraph(),
         followerCount: faker.datatype.number(100),
         followCount: faker.datatype.number(100),
+        createdAt: faker.date.past().getTime(),
       };
+
+      return user;
     });
   });
 
@@ -28,7 +31,7 @@ export const useTrendUsers = () => {
 
 export const useUser = (id?: string) => {
   const { data, error } = useSWR<User>(id && `/users/${id}`, () => {
-    return {
+    const user: User = {
       id: id!,
       handleName: faker.internet.userName(),
       name: faker.name.findName(),
@@ -36,7 +39,10 @@ export const useUser = (id?: string) => {
       description: faker.lorem.paragraph(),
       followerCount: faker.datatype.number(100),
       followCount: faker.datatype.number(100),
+      createdAt: faker.date.past().getTime(),
     };
+
+    return user;
   });
 
   return {
