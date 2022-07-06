@@ -10,8 +10,6 @@ const Input = forwardRef<
     errors?: FieldErrors;
   }
 >(({ className, label, errors, ...props }, ref) => {
-  console.log(errors);
-
   return (
     <div>
       {label && <label htmlFor={props.name}>{label}</label>}
@@ -25,11 +23,13 @@ const Input = forwardRef<
         {...props}
         ref={ref}
       />
-      <ErrorMessage
-        name={props.name!}
-        errors={errors}
-        render={({ message }) => <p className="text-red-500">{message}</p>}
-      />
+      {errors && (
+        <ErrorMessage
+          name={props.name!}
+          errors={errors}
+          render={({ message }) => <p className="text-red-500">{message}</p>}
+        />
+      )}
     </div>
   );
 });
