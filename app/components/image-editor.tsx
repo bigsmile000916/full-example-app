@@ -1,22 +1,10 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Post } from '@shared/types/post';
+import { PhotographIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
-import React, {
-  ChangeEvent,
-  FC,
-  Fragment,
-  useCallback,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEvent, Fragment, useCallback, useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { useDropzone } from 'react-dropzone';
-import {
-  Control,
-  FieldValues,
-  useController,
-  UseControllerProps,
-} from 'react-hook-form';
+import { useController, UseControllerProps } from 'react-hook-form';
 
 const sizes = {
   cover: {
@@ -53,7 +41,9 @@ const ImageEditor = <T,>({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [scale, setScale] = useState<number>(1.5);
   const [targetImage, setTargetImage] = useState<File>();
-  const ref = useRef<AvatarEditor>(null);
+  const avatarEditorRef = useRef<AvatarEditor>(null);
+  const cropButtonRef = useRef(null);
+
   const size = sizes[type];
 
   const {
@@ -65,18 +55,19 @@ const ImageEditor = <T,>({
     defaultValue,
   });
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+  const onDropAccepted = useCallback((acceptedFiles: File[]) => {
     setTargetImage(acceptedFiles[0]);
     setIsOpen(true);
   }, []);
 
-  const { getRootProps, getInputProps, isDragAccept } = useDropzone({
-    onDrop,
-    accept: {
-      'image/jpeg': [],
-      'image/png': [],
-    },
-  });
+  const { getRootProps, getInputProps, isDragAccept, isDragReject, open } =
+    useDropzone({
+      onDropAccepted,
+      accept: {
+        'image/jpeg': [],
+        'image/png': [],
+      },
+    });
 
   const handleScale = (e: ChangeEvent<HTMLInputElement>) => {
     setScale(parseFloat(e.target.value));
@@ -87,7 +78,7 @@ const ImageEditor = <T,>({
   };
 
   const crop = () => {
-    const image = ref.current?.getImage();
+    const image = avatarEditorRef.current?.getImage();
 
     const canvas = document.createElement('canvas');
     canvas.width = size.result.width;
@@ -105,27 +96,49 @@ const ImageEditor = <T,>({
         <input onBlur={onBlur} type="file" {...getInputProps()} />
         <div
           className={classNames(
-            'aspect-video',
-            isDragAccept ? 'bg-blue-500' : 'bg-black'
+            'aspect-video rounded-lg border-2 grid place-content-center cursor-pointer overflow-hidden hover:border-blue-500',
+            isDragAccept && 'border-blue-500',
+            isDragReject && 'border-red-500',
+            value ? 'border-solid' : 'border-dashed border-slate-600'
           )}
         >
-          {value && (
+          {value ? (
             <img
               src={value as string}
               className="w-full block object-cover"
               alt=""
             />
+          ) : (
+            <div className="text-slate-500">
+              <PhotographIcon className="w-10 h-10 mb-2 mx-auto" />
+              <p>Drop Image Here</p>
+            </div>
           )}
         </div>
       </div>
 
-      <div className="flex items-center space-x-2 text-slate-400">
-        <button>remove</button>
-        <button>change</button>
-      </div>
+      {value && (
+        <div className="flex justify-end items-center space-x-2 text-slate-500 mt-1 text-sm">
+          <button
+            className="hover:text-slate-300"
+            type="button"
+            onClick={() => onChange(null)}
+          >
+            Delete
+          </button>
+          <button className="hover:text-slate-300" type="button" onClick={open}>
+            Change
+          </button>
+        </div>
+      )}
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog
+          initialFocus={cropButtonRef}
+          as="div"
+          className="relative z-10"
+          onClose={closeModal}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -151,7 +164,7 @@ const ImageEditor = <T,>({
               >
                 <Dialog.Panel className="transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <AvatarEditor
-                    ref={ref}
+                    ref={avatarEditorRef}
                     image={targetImage!}
                     width={size.canvas.width}
                     height={size.canvas.height}
@@ -172,6 +185,7 @@ const ImageEditor = <T,>({
 
                   <div className="mt-4">
                     <button
+                      ref={cropButtonRef}
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={crop}

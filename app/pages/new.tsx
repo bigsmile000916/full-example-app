@@ -5,6 +5,7 @@ import ImageEditor from '../components/image-editor';
 import Input from '../components/input';
 import Layout from '../components/layout';
 import PageTitle from '../components/page-title';
+import TextArea from '../components/textarea';
 import { formErrorMessages } from '../lib/validate';
 import { NextPageWithLayout } from './_app';
 
@@ -43,21 +44,17 @@ const New: NextPageWithLayout = () => {
           </div>
 
           <div>
-            <label>
-              <span className="block">Body</span>
-              <textarea
-                className="border bg-transparent border-slate-500 px-2 py-2 rounded-md w-full"
-                required
-                rows={16}
-                {...register('body', {
-                  required: formErrorMessages.required,
-                  maxLength: formErrorMessages.maxLength(maxLength),
-                })}
-              />
-            </label>
-            <p className="text-sm text-right text-slate-500">
-              {watch('body')?.length || 0} / {maxLength}
-            </p>
+            <TextArea
+              label="Body"
+              rows={16}
+              limitLength={maxLength}
+              errors={errors}
+              currentLength={watch('body')?.length}
+              {...register('body', {
+                required: formErrorMessages.required,
+                maxLength: formErrorMessages.maxLength(maxLength),
+              })}
+            />
           </div>
         </div>
 
