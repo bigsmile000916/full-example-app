@@ -48,12 +48,15 @@ const ImageEditor = <T,>({
 
   const {
     field: { onChange, onBlur, value },
+    fieldState: { error },
   } = useController({
     name,
     control,
     rules,
     defaultValue,
   });
+
+  console.log(error);
 
   const onDropAccepted = useCallback((acceptedFiles: File[]) => {
     setTargetImage(acceptedFiles[0]);
@@ -98,7 +101,7 @@ const ImageEditor = <T,>({
           className={classNames(
             'aspect-video rounded-lg border-2 grid place-content-center cursor-pointer overflow-hidden hover:border-blue-500',
             isDragAccept && 'border-blue-500',
-            isDragReject && 'border-red-500',
+            (isDragReject || error) && 'border-red-500',
             value ? 'border-solid' : 'border-dashed border-slate-600'
           )}
         >
@@ -183,7 +186,7 @@ const ImageEditor = <T,>({
                     onChange={handleScale}
                   />
 
-                  <div className="mt-4">
+                  <div className="mt-4 flex space-x-4">
                     <button
                       ref={cropButtonRef}
                       type="button"
@@ -191,6 +194,13 @@ const ImageEditor = <T,>({
                       onClick={crop}
                     >
                       Crop
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModal}
+                    >
+                      Close
                     </button>
                   </div>
                 </Dialog.Panel>

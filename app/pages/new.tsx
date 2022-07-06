@@ -6,6 +6,9 @@ import Input from '../components/input';
 import Layout from '../components/layout';
 import PageTitle from '../components/page-title';
 import TextArea from '../components/textarea';
+import { useRequireAuth } from '../lib/auth';
+import useFormGuard from '../lib/form-guard';
+import { createPost } from '../lib/post';
 import { formErrorMessages } from '../lib/validate';
 import { NextPageWithLayout } from './_app';
 
@@ -16,12 +19,29 @@ const New: NextPageWithLayout = () => {
     handleSubmit,
     control,
     watch,
-    formState: { errors, isValid },
+    formState: { errors, isDirty, isSubmitting },
   } = useForm<Post>();
+
+  const { user } = useRequireAuth();
+
+  useFormGuard(isDirty);
 
   const maxLength = 400;
 
-  const submit = () => {};
+  if (!user) {
+    return null;
+  }
+
+  const submit = (data: Post) => {
+    return createPost({
+      ...data,
+      authorId: user.id,
+    }).then(() => {
+      reset(undefined, {
+        keepValues: true,
+      });
+    });
+  };
 
   return (
     <div className="container">
@@ -68,7 +88,10 @@ const New: NextPageWithLayout = () => {
             }}
           />
           <div className="mt-4">
-            <button className="px-4 py-1.5 rounded-full bg-blue-500 text-white">
+            <button
+              disabled={isSubmitting}
+              className="px-4 py-1.5 rounded-full bg-blue-500 text-white disabled:opacity-30"
+            >
               Post
             </button>
           </div>

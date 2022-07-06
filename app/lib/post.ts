@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Post } from '@shared/types/post';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import useSWR from 'swr/immutable';
+import { db } from './firebase/client';
 
 export const useTrendPosts = () => {
   const { data, error } = useSWR('/trend-posts', () => {
@@ -23,4 +25,20 @@ export const useTrendPosts = () => {
     isLoading: !data && !error,
     error,
   };
+};
+
+export const createPost = (
+  data: Pick<Post, 'title' | 'body' | 'authorId' | 'coverUrl'>
+) => {
+  const ref = doc(collection(db, 'posts'));
+  const post: Post = {
+    id: ref.id,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+    likeCount: 0,
+    commentCount: 0,
+    ...data,
+  };
+
+  return setDoc(ref, post);
 };

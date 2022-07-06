@@ -17,7 +17,8 @@ const Input = forwardRef<
         type="text"
         id={props.name}
         className={classNames(
-          'border bg-transparent border-slate-500 px-2 py-2 rounded-md',
+          'border bg-transparent px-2 py-2 rounded-md',
+          errors?.[props.name!] ? 'border-red-500' : 'border-slate-500',
           className
         )}
         {...props}
