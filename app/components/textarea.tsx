@@ -26,7 +26,7 @@ const TextArea = forwardRef<
         ref={ref}
       />{' '}
       {limitLength && (
-        <p className="'text-sm text-right text-slate-500'">
+        <p className="text-sm text-right text-slate-500">
           <span
             className={classNames(
               currentLength && currentLength > limitLength && 'text-red-500'

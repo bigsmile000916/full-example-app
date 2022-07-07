@@ -1,63 +1,68 @@
+import { Contact } from '@shared/types/contact';
 import React, { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import Button from '../components/button';
+import Input from '../components/input';
 import Layout from '../components/layout';
+import PageTitle from '../components/page-title';
+import TextArea from '../components/textarea';
+import { formErrorMessages } from '../lib/validate';
 import { NextPageWithLayout } from './_app';
 
-const Contact: NextPageWithLayout = () => {
+const ContactPage: NextPageWithLayout = () => {
   const {
     register,
-    formState: { errors },
-  } = useForm();
+    watch,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<Contact>();
+
+  const submit = (data: Contact) => {
+    console.log(data);
+  };
 
   return (
     <div className="container">
-      <h1>Contact</h1>
-      <form>
-        <label>
-          <span>Name</span>
-          <input
-            required
-            {...register('name', {
-              required: 'required',
-            })}
-            type="text"
-            autoComplete="name"
-          />
-        </label>
-        {errors.name && <p className="text-red-500">errors.name?.message</p>}
+      <PageTitle>Contact</PageTitle>
+      <form className="space-y-4" onSubmit={handleSubmit(submit)}>
+        <Input
+          label="Name"
+          autoComplete="name"
+          type="text"
+          errors={errors}
+          {...register('name', {
+            required: 'required',
+          })}
+        />
 
-        <label>
-          <span>Email</span>
-          <input
-            required
-            {...register('email', {
-              required: 'required',
-            })}
-            type="email"
-            autoComplete="email"
-          />
-        </label>
+        <Input
+          label="Email"
+          autoComplete="email"
+          type="text"
+          errors={errors}
+          {...register('email', {
+            required: 'required',
+          })}
+        />
 
-        <label>
-          <span>Email</span>
-          <input
-            required
-            {...register('email', {
-              required: 'required',
-            })}
-            type="email"
-            autoComplete="email"
-          />
-        </label>
+        <TextArea
+          label="Body"
+          currentLength={watch('body')?.length}
+          limitLength={400}
+          {...register('body', {
+            required: 'required',
+            maxLength: formErrorMessages.maxLength(400),
+          })}
+        />
 
-        <button>Submit</button>
+        <Button disabled={isSubmitting}>Submit</Button>
       </form>
     </div>
   );
 };
 
-Contact.getLayout = function getLayout(page: ReactElement) {
+ContactPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
 
-export default Contact;
+export default ContactPage;

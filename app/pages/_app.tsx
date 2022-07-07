@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 
 import '../styles/globals.css';
 import { AuthProvider } from '../context/auth';
+import { Toaster } from 'react-hot-toast';
 
 export type NextPageWithLayout<T = {}> = NextPage<T> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -21,6 +22,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <div className="text-slate-200">
         {getLayout(<Component {...pageProps} />)}
       </div>
+      <Toaster />
     </AuthProvider>
   );
 }

@@ -26,6 +26,8 @@ const New: NextPageWithLayout = () => {
 
   useFormGuard(isDirty);
 
+  console.log(isDirty);
+
   const maxLength = 400;
 
   if (!user) {
@@ -57,7 +59,6 @@ const New: NextPageWithLayout = () => {
               errors={errors}
               label="Title"
               type="text"
-              autoFocus
               autoComplete="off"
               className="w-full"
             />
