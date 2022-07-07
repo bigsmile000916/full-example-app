@@ -19,12 +19,12 @@ const sizes = {
   },
   avatar: {
     canvas: {
-      width: 480,
-      height: 270,
+      width: 400,
+      height: 400,
     },
     result: {
-      width: 960,
-      height: 540,
+      width: 400,
+      height: 400,
     },
   },
 };
@@ -55,8 +55,6 @@ const ImageEditor = <T,>({
     rules,
     defaultValue,
   });
-
-  console.log(error);
 
   const onDropAccepted = useCallback((acceptedFiles: File[]) => {
     setTargetImage(acceptedFiles[0]);
@@ -99,7 +97,8 @@ const ImageEditor = <T,>({
         <input onBlur={onBlur} type="file" {...getInputProps()} />
         <div
           className={classNames(
-            'aspect-video rounded-lg border-2 grid place-content-center cursor-pointer overflow-hidden hover:border-blue-500',
+            'rounded-lg border-2 grid place-content-center relative cursor-pointer overflow-hidden hover:border-blue-500',
+            type === 'avatar' ? 'aspect-square' : 'aspect-video',
             isDragAccept && 'border-blue-500',
             (isDragReject || error) && 'border-red-500',
             value ? 'border-solid' : 'border-dashed border-slate-600'
@@ -108,7 +107,7 @@ const ImageEditor = <T,>({
           {value ? (
             <img
               src={value as string}
-              className="w-full block object-cover"
+              className="w-full block object-cover absolute inset-0"
               alt=""
             />
           ) : (

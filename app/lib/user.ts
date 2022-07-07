@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { User } from '@shared/types/user';
-import { useRouter } from 'next/router';
+import { EditableUserField, User } from '@shared/types/user';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import useSWR from 'swr/immutable';
-import { useAuth } from '../context/auth';
+import { db } from './firebase/client';
 
 export const useTrendUsers = () => {
   const { data, error } = useSWR<User[]>('/trend-users', () => {
@@ -30,7 +30,7 @@ export const useTrendUsers = () => {
 };
 
 export const useUser = (id?: string) => {
-  const { data, error } = useSWR<User>(id && `/users/${id}`, () => {
+  const { data, error } = useSWR<User>(id && `/users/${id}`, async () => {
     const user: User = {
       id: id!,
       handleName: faker.internet.userName(),
@@ -42,7 +42,10 @@ export const useUser = (id?: string) => {
       createdAt: faker.date.past().getTime(),
     };
 
-    return user;
+    const ref = doc(db, `users/${id}`);
+    const snap = await getDoc(ref);
+
+    return snap.data() || user;
   });
 
   return {
@@ -50,4 +53,9 @@ export const useUser = (id?: string) => {
     isLoading: !error && !data,
     isError: error,
   };
+};
+
+export const updateUser = (id: string, data: Partial<EditableUserField>) => {
+  const ref = doc(db, `users/${id}`);
+  return updateDoc(ref, data);
 };

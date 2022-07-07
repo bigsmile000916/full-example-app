@@ -19,13 +19,15 @@ const PostCard: FC<Props> = ({ post }) => {
 
   return (
     <div className="rounded-lg bg-slate-800/80 p-4">
-      <div className={`rounded-lg overflow-hidden aspect-video`}>
-        <img
-          src={post.coverUrl}
-          className="object-cover w-full h-full"
-          alt=""
-        />
-      </div>
+      {post.coverUrl && (
+        <div className={`rounded-lg overflow-hidden aspect-video`}>
+          <img
+            src={post.coverUrl}
+            className="object-cover w-full h-full"
+            alt=""
+          />
+        </div>
+      )}
       <div className="flex mt-3">
         <Avatar src={user.photoUrl} />
         <div className="flex-1 ml-4">

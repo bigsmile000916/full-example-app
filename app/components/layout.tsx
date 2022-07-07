@@ -1,6 +1,5 @@
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import Header from './header';
-import SearchBox from './search-box';
 import SideNav from './side-nav';
 
 const Layout: FC<{
@@ -11,8 +10,8 @@ const Layout: FC<{
       <div className="w-80">
         <SideNav />
       </div>
-      <div className="flex-1 overflow-hidden">
-        <div className="my-6">
+      <div className="flex-1 overflow-hidden pt-6 pb-10">
+        <div className="mb-6">
           <Header />
         </div>
         <main className="relative">{children}</main>

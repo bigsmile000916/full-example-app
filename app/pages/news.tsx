@@ -28,15 +28,15 @@ export const getStaticProps: GetStaticProps<{
 const News: NextPageWithLayout<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ posts }) => {
-  console.log(posts);
-
   return (
     <div className="container">
       <PageTitle>News</PageTitle>
 
-      {posts.map((post) => (
-        <PostCard key={post.id} post={post} />
-      ))}
+      <div className="space-y-4">
+        {posts.map((post) => (
+          <PostCard key={post.id} post={post} />
+        ))}
+      </div>
     </div>
   );
 };

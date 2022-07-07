@@ -1,11 +1,19 @@
 import { faker } from '@faker-js/faker';
 import { Post } from '@shared/types/post';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 import useSWR from 'swr/immutable';
 import { db } from './firebase/client';
 
 export const useTrendPosts = () => {
-  const { data, error } = useSWR('/trend-posts', () => {
+  const { data, error } = useSWR<Post[]>('/trend-posts', () => {
     return [...new Array(4)].map((_) => {
       return {
         id: faker.datatype.uuid(),
@@ -22,6 +30,27 @@ export const useTrendPosts = () => {
 
   return {
     trendPosts: data,
+    isLoading: !data && !error,
+    error,
+  };
+};
+
+export const useUsersPosts = (userId?: string) => {
+  const { data, error } = useSWR<Post[]>(userId && '/usersPosts', async () => {
+    const ref = query(
+      collection(db, 'posts'),
+      where('authorId', '==', userId),
+      orderBy('createdAt', 'desc')
+    );
+    const result = await getDocs(ref)
+      .then((snap) => snap.docs.map((doc) => doc.data() as Post))
+      .catch((e) => console.log(e));
+
+    return result || [];
+  });
+
+  return {
+    posts: data,
     isLoading: !data && !error,
     error,
   };

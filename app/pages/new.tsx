@@ -1,6 +1,8 @@
 import { Post } from '@shared/types/post';
 import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import Button from '../components/button';
 import ImageEditor from '../components/image-editor';
 import Input from '../components/input';
 import Layout from '../components/layout';
@@ -26,8 +28,6 @@ const New: NextPageWithLayout = () => {
 
   useFormGuard(isDirty);
 
-  console.log(isDirty);
-
   const maxLength = 400;
 
   if (!user) {
@@ -38,11 +38,13 @@ const New: NextPageWithLayout = () => {
     return createPost({
       ...data,
       authorId: user.id,
-    }).then(() => {
-      reset(undefined, {
-        keepValues: true,
-      });
-    });
+    })
+      .then(() => {
+        console.log('success');
+        reset(undefined);
+        toast.success('Saved');
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -84,17 +86,10 @@ const New: NextPageWithLayout = () => {
             name="coverUrl"
             type="cover"
             control={control}
-            rules={{
-              required: true,
-            }}
+            defaultValue=""
           />
           <div className="mt-4">
-            <button
-              disabled={isSubmitting}
-              className="px-4 py-1.5 rounded-full bg-blue-500 text-white disabled:opacity-30"
-            >
-              Post
-            </button>
+            <Button disabled={isSubmitting}>Post</Button>
           </div>
         </div>
       </form>

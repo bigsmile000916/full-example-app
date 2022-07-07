@@ -3,8 +3,9 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 import Avatar from '../../components/avatar';
+import Button from '../../components/button';
 import Layout from '../../components/layout';
-import PageTitle from '../../components/page-title';
+import UsersPostList from '../../components/users-post-list';
 import { useRequireAuth } from '../../lib/auth';
 import { NextPageWithLayout } from '../_app';
 
@@ -32,7 +33,15 @@ const Profile: NextPageWithLayout = () => {
 
   return (
     <div>
-      <div className="bg-black aspect-[16/4]"></div>
+      <div className="bg-black aspect-[16/4]">
+        {user.coverUrl && (
+          <img
+            src={user.coverUrl}
+            alt=""
+            className="object-cover w-full h-full"
+          />
+        )}
+      </div>
 
       <div className="container">
         <div className="flex items-center -mt-2 mb-6">
@@ -43,9 +52,7 @@ const Profile: NextPageWithLayout = () => {
             <h2 className="text-xl font-bold">{user.name}</h2>
             <p className="text-slate-500">@{user.handleName}</p>
           </div>
-          <button className="px-4 py-2 rounded-full border-2 border-slate-800 hover:bg-blue-500">
-            Edit Profile
-          </button>
+          <Button href="/profile/edit">Edit Profile</Button>
         </div>
 
         <p>{user.description}</p>
@@ -80,8 +87,10 @@ const Profile: NextPageWithLayout = () => {
               </Tab>
             ))}
           </Tab.List>
-          <Tab.Panels className="p-4">
-            <Tab.Panel>posts</Tab.Panel>
+          <Tab.Panels className="py-4">
+            <Tab.Panel>
+              <UsersPostList />
+            </Tab.Panel>
             <Tab.Panel>likes</Tab.Panel>
           </Tab.Panels>
         </Tab.Group>

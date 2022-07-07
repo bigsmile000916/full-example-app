@@ -4,8 +4,8 @@ export type Post = {
   body: string;
   createdAt: number;
   updatedAt: number;
-  coverUrl: string;
   authorId: string;
   likeCount: number;
   commentCount: number;
+  coverUrl: string;
 };

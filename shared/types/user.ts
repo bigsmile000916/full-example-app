@@ -7,4 +7,7 @@ export type User = {
   followerCount: number;
   followCount: number;
   createdAt: number;
+  coverUrl: string;
 };
+
+export type EditableUserField = Omit<User, 'id' | 'handleName' | 'createdAt'>;
