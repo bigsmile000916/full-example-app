@@ -1,17 +1,14 @@
 import Link from 'next/link';
 
 import {
-  CogIcon,
   HeartIcon,
   HomeIcon,
   LogoutIcon,
   RssIcon,
   UserIcon,
 } from '@heroicons/react/outline';
-import classNames from 'classnames';
-import { useRouter } from 'next/router';
-import SideNavItem from './side-nav-item';
 import Image from 'next/image';
+import SideNavItem from './side-nav-item';
 
 const mainItems = [
   {
@@ -56,8 +53,6 @@ const subItems = [
 ];
 
 const SideNav = () => {
-  const router = useRouter();
-
   return (
     <div className="bg-slate-800 shadow p-12 text-white h-screen overflow-auto sticky top-0">
       <div className="overflow-auto flex min-h-full flex-col">

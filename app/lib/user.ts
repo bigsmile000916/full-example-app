@@ -12,6 +12,7 @@ export const useTrendUsers = () => {
         handleName: faker.internet.userName(),
         name: faker.name.findName(),
         photoUrl: faker.image.avatar(),
+        coverUrl: faker.image.abstract(800, 400),
         description: faker.lorem.paragraph(),
         followerCount: faker.datatype.number(100),
         followCount: faker.datatype.number(100),
@@ -36,6 +37,7 @@ export const useUser = (id?: string) => {
       handleName: faker.internet.userName(),
       name: faker.name.findName(),
       photoUrl: faker.image.avatar(),
+      coverUrl: faker.image.abstract(800, 400),
       description: faker.lorem.paragraph(),
       followerCount: faker.datatype.number(100),
       followCount: faker.datatype.number(100),
@@ -45,7 +47,7 @@ export const useUser = (id?: string) => {
     const ref = doc(db, `users/${id}`);
     const snap = await getDoc(ref);
 
-    return snap.data() || user;
+    return (snap.data() as User) || user;
   });
 
   return {

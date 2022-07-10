@@ -20,11 +20,7 @@ const Header = () => {
           <UserMenu />
         </>
       )}
-      {!isLoading && !user && (
-        <Link href="/signin">
-          <a>login</a>
-        </Link>
-      )}
+      {!isLoading && !user && <Button href="/signin">Login</Button>}
     </div>
   );
 };

@@ -1,18 +1,27 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { ReactElement } from 'react';
+import Button from '../components/button';
+import Layout from '../components/layout';
 import { useAuth } from '../context/auth';
-import { createAccount } from '../lib/auth';
+import { createAccount, login } from '../lib/auth';
+import { NextPageWithLayout } from './_app';
 
-const Signup = () => {
-  const { fbUser, user } = useAuth();
+const Signup: NextPageWithLayout = () => {
+  const { fbUser } = useAuth();
   const router = useRouter();
 
   if (!fbUser) {
+    router.push('/');
     return null;
   }
 
-  if (user) {
-    router.push('/');
+  if (!fbUser) {
+    return (
+      <div className="container my-10">
+        <Button onClick={login}>Login</Button>
+      </div>
+    );
   }
 
   return (
@@ -37,6 +46,10 @@ const Signup = () => {
       </Link>
     </div>
   );
+};
+
+Signup.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
 };
 
 export default Signup;
