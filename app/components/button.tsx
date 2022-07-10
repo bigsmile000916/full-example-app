@@ -18,7 +18,7 @@ const Button: FC<
   }
 > = (props) => {
   const className = classNames(
-    'bg-blue-500 text-white px-3 py-2 rounded-full min-w-[80px] text-center',
+    'bg-blue-500 text-white px-4 py-2 rounded-full min-w-[80px] text-center',
     props.className
   );
 

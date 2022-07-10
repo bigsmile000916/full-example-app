@@ -1,9 +1,9 @@
 export const formErrorMessages = {
-  required: 'This field is required.',
+  required: '必須',
   maxLength: (value: number) => {
     return {
       value,
-      message: `This field has a max length of ${value} characters.`,
+      message: `最大 ${value} 文字`,
     };
   },
 };

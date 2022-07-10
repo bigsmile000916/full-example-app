@@ -10,4 +10,4 @@ export type User = {
   coverUrl: string;
 };
 
-export type EditableUserField = Omit<User, 'id' | 'handleName' | 'createdAt'>;
+export type EditableUserField = Omit<User, 'id' | 'createdAt'>;

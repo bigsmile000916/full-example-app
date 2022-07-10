@@ -15,12 +15,12 @@ const Header = () => {
       <span className="flex-1"></span>
       {user && (
         <>
-          <Button href="/new">Post</Button>
+          <Button href="/new">投稿</Button>
           <Notification />
           <UserMenu />
         </>
       )}
-      {!isLoading && !user && <Button href="/signin">Login</Button>}
+      {!isLoading && !user && <Button href="/signin">ログイン</Button>}
     </div>
   );
 };

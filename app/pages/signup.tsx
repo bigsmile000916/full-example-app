@@ -1,55 +1,40 @@
+import { User } from '@shared/types/user';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ReactElement } from 'react';
-import Button from '../components/button';
-import Layout from '../components/layout';
+import { useForm } from 'react-hook-form';
+import Logo from '../components/logo';
+import PageTitle from '../components/page-title';
+import SigninSignupForm from '../components/signin-signup-form';
+import UserForm from '../components/user-form';
 import { useAuth } from '../context/auth';
-import { createAccount, login } from '../lib/auth';
-import { NextPageWithLayout } from './_app';
 
-const Signup: NextPageWithLayout = () => {
-  const { fbUser } = useAuth();
+const Signup = () => {
+  const { fbUser, isLoading, user } = useAuth();
   const router = useRouter();
+  const { register, control } = useForm<User>();
 
-  if (!fbUser) {
+  if (isLoading) {
+    return null;
+  }
+
+  if (user) {
     router.push('/');
     return null;
   }
 
   if (!fbUser) {
-    return (
-      <div className="container my-10">
-        <Button onClick={login}>Login</Button>
-      </div>
-    );
+    return <SigninSignupForm mode="signup" />;
   }
 
   return (
-    <div>
-      <form>
-        <h2>avatar</h2>
-        <input type="file" />
-        <span>name</span>
-        <input type="name" required />
-        <textarea required />
-        <button
-          type="button"
-          onClick={() => {
-            createAccount(fbUser).then(() => router.push('/'));
-          }}
-        >
-          signup
-        </button>
-      </form>
-      <Link href="/">
-        <a>top</a>
-      </Link>
+    <div className="container py-10">
+      <div className="mb-6">
+        <Logo />
+      </div>
+      <PageTitle>アカウント作成</PageTitle>
+      <UserForm mode="create" />
     </div>
   );
-};
-
-Signup.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
 };
 
 export default Signup;

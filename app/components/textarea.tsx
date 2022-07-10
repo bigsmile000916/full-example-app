@@ -1,53 +1,67 @@
 import classNames from 'classnames';
-import { forwardRef, TextareaHTMLAttributes } from 'react';
-import { FieldErrors } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
+import { TextareaHTMLAttributes } from 'react';
+import {
+  useController,
+  UseControllerProps,
+  ValidationValueMessage,
+} from 'react-hook-form';
 
-const TextArea = forwardRef<
-  HTMLTextAreaElement,
-  TextareaHTMLAttributes<HTMLTextAreaElement> & {
+const TextArea = <T,>({
+  className,
+  label,
+  control,
+  rules,
+  name,
+  ...props
+}: TextareaHTMLAttributes<HTMLTextAreaElement> &
+  UseControllerProps<T> & {
     label?: string;
-    currentLength?: number;
-    limitLength?: number;
-    errors?: FieldErrors;
-  }
->(({ className, limitLength, currentLength, label, errors, ...props }, ref) => {
+  }) => {
+  const {
+    field,
+    fieldState: { error },
+  } = useController({
+    name,
+    control,
+    rules,
+  });
+
+  const value = (field.value as string) || '';
+  const maxLength = (rules?.maxLength as ValidationValueMessage)
+    ?.value as number;
+
   return (
     <div>
-      {label && <label htmlFor={props.name}>{label}</label>}
+      {label && (
+        <label htmlFor={name}>
+          {label}
+          {rules?.required && '*'}
+        </label>
+      )}
       <textarea
-        id={props.name}
+        id={name}
         className={classNames(
           'border bg-transparent border-slate-500 px-2 py-2 rounded-md w-full',
-          errors?.[props.name!] && 'border-red-500',
+          error && 'border-red-500',
           className
         )}
         {...props}
-        ref={ref}
-      />{' '}
-      {limitLength && (
+        {...field}
+        value={value}
+      />
+      {rules?.maxLength && (
         <p className="text-sm text-right text-slate-500">
           <span
-            className={classNames(
-              currentLength && currentLength > limitLength && 'text-red-500'
-            )}
+            className={classNames(value.length > maxLength && 'text-red-500')}
           >
-            {currentLength || 0}
-          </span>{' '}
-          / {limitLength}
+            {value.length || 0}
+          </span>
+          / {maxLength}
         </p>
       )}
-      {errors && (
-        <ErrorMessage
-          name={props.name!}
-          errors={errors}
-          render={({ message }) => <p className="text-red-500">{message}</p>}
-        />
-      )}
+      {error && <p className="text-red-500">{error.message}</p>}
     </div>
   );
-});
-
-TextArea.displayName = 'TextArea';
+};
 
 export default TextArea;

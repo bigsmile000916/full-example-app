@@ -1,5 +1,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Button from '../components/button';
+import Logo from '../components/logo';
+import PageTitle from '../components/page-title';
+import SigninSignupForm from '../components/signin-signup-form';
 import { useAuth } from '../context/auth';
 import { login } from '../lib/auth';
 
@@ -15,21 +19,7 @@ const Login = () => {
     router.push('/signup');
   }
 
-  return (
-    <div>
-      <h1>Login</h1>
-      <button
-        onClick={() => {
-          login();
-        }}
-      >
-        signin
-      </button>
-      <Link href="/">
-        <a>top</a>
-      </Link>
-    </div>
-  );
+  return <SigninSignupForm mode="signin" />;
 };
 
 export default Login;

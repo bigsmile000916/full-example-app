@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { EditableUserField, User } from '@shared/types/user';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import useSWR from 'swr/immutable';
 import { db } from './firebase/client';
 
@@ -55,6 +55,16 @@ export const useUser = (id?: string) => {
     isLoading: !error && !data,
     isError: error,
   };
+};
+
+export const createUser = (id: string, data: EditableUserField) => {
+  const ref = doc(db, `users/${id}`);
+  const user: User = {
+    ...data,
+    id,
+    createdAt: Date.now(),
+  };
+  return setDoc(ref, user);
 };
 
 export const updateUser = (id: string, data: Partial<EditableUserField>) => {

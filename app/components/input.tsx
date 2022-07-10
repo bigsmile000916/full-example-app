@@ -1,40 +1,48 @@
 import classNames from 'classnames';
-import { forwardRef, InputHTMLAttributes } from 'react';
-import { FieldErrors } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
+import { InputHTMLAttributes } from 'react';
+import { useController, UseControllerProps } from 'react-hook-form';
 
-const Input = forwardRef<
-  HTMLInputElement,
-  InputHTMLAttributes<HTMLInputElement> & {
-    label?: string;
-    errors?: FieldErrors;
-  }
->(({ className, label, errors, ...props }, ref) => {
+const Input = <T,>({
+  className,
+  label,
+  control,
+  name,
+  rules,
+  ...props
+}: InputHTMLAttributes<HTMLInputElement> & {
+  label?: string;
+} & UseControllerProps<T>) => {
+  const {
+    field,
+    fieldState: { error },
+  } = useController({
+    control,
+    name,
+  });
+
   return (
     <div>
-      {label && <label htmlFor={props.name}>{label}</label>}
+      {label && (
+        <label htmlFor={name}>
+          {label}
+          {rules?.required && '*'}
+        </label>
+      )}
       <input
         type="text"
-        id={props.name}
+        id={name}
         className={classNames(
           'block border bg-transparent px-2 py-2 rounded-md w-full',
-          errors?.[props.name!] ? 'border-red-500' : 'border-slate-500',
+          error ? 'border-red-500' : 'border-slate-500',
           className
         )}
         {...props}
-        ref={ref}
+        {...field}
+        value={field.value as string}
       />
-      {errors && (
-        <ErrorMessage
-          name={props.name!}
-          errors={errors}
-          render={({ message }) => <p className="text-red-500">{message}</p>}
-        />
-      )}
+      {error && <p className="text-red-500">{error.message}</p>}
     </div>
   );
-});
-
-Input.displayName = 'Input';
+};
 
 export default Input;

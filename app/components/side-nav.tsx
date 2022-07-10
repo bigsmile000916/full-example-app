@@ -9,6 +9,7 @@ import {
 } from '@heroicons/react/outline';
 import Image from 'next/image';
 import SideNavItem from './side-nav-item';
+import Logo from './logo';
 
 const mainItems = [
   {
@@ -57,17 +58,7 @@ const SideNav = () => {
     <div className="bg-slate-800 shadow p-12 text-white h-screen overflow-auto sticky top-0">
       <div className="overflow-auto flex min-h-full flex-col">
         <p className="mb-10">
-          <Link href="/">
-            <a className="h-10 block relative">
-              <Image
-                src="/logo.svg"
-                layout="fill"
-                alt="Logo"
-                objectPosition="left"
-                objectFit="contain"
-              />
-            </a>
-          </Link>
+          <Logo />
         </p>
 
         <div className="flex-1">

@@ -111,9 +111,9 @@ const ImageEditor = <T,>({
               alt=""
             />
           ) : (
-            <div className="text-slate-500">
+            <div className="text-slate-500 text-sm">
               <PhotographIcon className="w-10 h-10 mb-2 mx-auto" />
-              <p>Drop Image Here</p>
+              <p>画像を選択</p>
             </div>
           )}
         </div>

@@ -21,7 +21,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <ThemeProvider attribute="class" enableColorScheme={false}>
       <AuthProvider>
-        <div className="text-slate-200">
+        <div className="text-slate-200 min-h-screen bg-slate-900">
           {getLayout(<Component {...pageProps} />)}
         </div>
         <Toaster />

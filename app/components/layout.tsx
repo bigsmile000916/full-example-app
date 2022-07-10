@@ -6,7 +6,7 @@ const Layout: FC<{
   children: ReactNode;
 }> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-slate-900 flex">
+    <div className="flex">
       <div className="w-80">
         <SideNav />
       </div>
