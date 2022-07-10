@@ -19,7 +19,7 @@ const UserForm: FC<{
     control,
     handleSubmit,
     reset,
-    formState: { isSubmitting, isValid, errors },
+    formState: { isSubmitting },
   } = useForm<EditableUserField>();
 
   const { fbUser } = useAuth();
@@ -52,18 +52,29 @@ const UserForm: FC<{
     <form className="space-y-4" onSubmit={handleSubmit(submit)}>
       <div className="max-w-xs">
         <h2>カバー画像</h2>
-        <ImageEditor name="coverUrl" control={control} type="cover" />
+        <ImageEditor
+          name="coverUrl"
+          defaultValue=""
+          control={control}
+          type="cover"
+        />
       </div>
       <div>
         <h2>プロフィール画像</h2>
         <div className="w-40">
-          <ImageEditor name="photoUrl" control={control} type="avatar" />
+          <ImageEditor
+            defaultValue={fbUser.photoURL as string}
+            name="photoUrl"
+            control={control}
+            type="avatar"
+          />
         </div>
       </div>
       <Input
         label="名前"
         autoComplete="name"
         control={control}
+        defaultValue=""
         name="name"
         rules={{
           required: formErrorMessages.required,
@@ -73,6 +84,7 @@ const UserForm: FC<{
       <TextArea
         label="プロフィール"
         name="description"
+        defaultValue=""
         control={control}
         rules={{
           maxLength: formErrorMessages.maxLength(400),

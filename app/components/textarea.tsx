@@ -7,11 +7,12 @@ import {
 } from 'react-hook-form';
 
 const TextArea = <T,>({
-  className,
   label,
   control,
   rules,
   name,
+  defaultValue,
+  shouldUnregister,
   ...props
 }: TextareaHTMLAttributes<HTMLTextAreaElement> &
   UseControllerProps<T> & {
@@ -24,6 +25,8 @@ const TextArea = <T,>({
     name,
     control,
     rules,
+    defaultValue,
+    shouldUnregister,
   });
 
   const value = (field.value as string) || '';
@@ -42,8 +45,7 @@ const TextArea = <T,>({
         id={name}
         className={classNames(
           'border bg-transparent border-slate-500 px-2 py-2 rounded-md w-full',
-          error && 'border-red-500',
-          className
+          error && 'border-red-500'
         )}
         {...props}
         {...field}

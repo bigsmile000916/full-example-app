@@ -35,6 +35,7 @@ const ImageEditor = <T,>({
   rules,
   defaultValue,
   type,
+  shouldUnregister,
 }: UseControllerProps<T> & {
   type: 'cover' | 'avatar';
 }) => {
@@ -54,6 +55,7 @@ const ImageEditor = <T,>({
     control,
     rules,
     defaultValue,
+    shouldUnregister,
   });
 
   const onDropAccepted = useCallback((acceptedFiles: File[]) => {
@@ -124,12 +126,12 @@ const ImageEditor = <T,>({
           <button
             className="hover:text-slate-300"
             type="button"
-            onClick={() => onChange(null)}
+            onClick={() => onChange('')}
           >
-            Delete
+            削除
           </button>
           <button className="hover:text-slate-300" type="button" onClick={open}>
-            Change
+            変更
           </button>
         </div>
       )}

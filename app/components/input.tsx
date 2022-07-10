@@ -3,11 +3,12 @@ import { InputHTMLAttributes } from 'react';
 import { useController, UseControllerProps } from 'react-hook-form';
 
 const Input = <T,>({
-  className,
   label,
   control,
   name,
   rules,
+  defaultValue,
+  shouldUnregister,
   ...props
 }: InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -18,6 +19,9 @@ const Input = <T,>({
   } = useController({
     control,
     name,
+    defaultValue,
+    shouldUnregister,
+    rules,
   });
 
   return (
@@ -33,8 +37,7 @@ const Input = <T,>({
         id={name}
         className={classNames(
           'block border bg-transparent px-2 py-2 rounded-md w-full',
-          error ? 'border-red-500' : 'border-slate-500',
-          className
+          error ? 'border-red-500' : 'border-slate-500'
         )}
         {...props}
         {...field}
