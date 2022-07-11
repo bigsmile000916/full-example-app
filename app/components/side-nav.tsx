@@ -7,32 +7,9 @@ import {
   RssIcon,
   UserIcon,
 } from '@heroicons/react/outline';
-import Image from 'next/image';
-import SideNavItem from './side-nav-item';
 import Logo from './logo';
-
-const mainItems = [
-  {
-    icon: HomeIcon,
-    label: 'ホーム',
-    href: '/',
-  },
-  {
-    icon: RssIcon,
-    label: '最新の投稿',
-    href: '/news',
-  },
-  {
-    icon: HeartIcon,
-    label: 'お気に入り',
-    href: '/likes',
-  },
-  {
-    icon: UserIcon,
-    label: 'プロフィール',
-    href: '/profile',
-  },
-];
+import SideNavItem from './side-nav-item';
+import { useAuth } from '../context/auth';
 
 const subItems = [
   {
@@ -54,6 +31,31 @@ const subItems = [
 ];
 
 const SideNav = () => {
+  const { user } = useAuth();
+
+  const mainItems = [
+    {
+      icon: HomeIcon,
+      label: 'ホーム',
+      href: '/',
+    },
+    {
+      icon: RssIcon,
+      label: '最新の投稿',
+      href: '/news',
+    },
+    {
+      icon: HeartIcon,
+      label: 'お気に入り',
+      href: '/likes',
+    },
+    {
+      icon: UserIcon,
+      label: 'プロフィール',
+      href: `/users/${user?.id}`,
+    },
+  ];
+
   return (
     <div className="bg-slate-800 shadow p-12 text-white h-screen overflow-auto sticky top-0">
       <div className="overflow-auto flex min-h-full flex-col">

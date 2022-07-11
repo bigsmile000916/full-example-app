@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { useAuth } from '../context/auth';
+import { FC } from 'react';
 import { useUsersPosts } from '../lib/post';
 import PostCard from './post-card';
 
-const UsersPostList = () => {
-  const { user } = useAuth();
-  const { posts } = useUsersPosts(user?.id);
+const UsersPostList: FC<{
+  userId: string;
+}> = ({ userId }) => {
+  const { posts } = useUsersPosts(userId);
 
-  if (!user) {
+  if (!posts) {
     return null;
   }
 

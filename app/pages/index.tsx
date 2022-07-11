@@ -33,7 +33,7 @@ const Home: NextPageWithLayout<
 
           <div className="flex items-center mt-8 mb-6">
             <h2 className="text-slate-200 font-bold text-2xl flex-1">
-              トレンド
+              人気の記事
             </h2>
             <ul className="flex items-center text-slate-500">
               <li>

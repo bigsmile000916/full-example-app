@@ -27,7 +27,6 @@ const useFormGuard = (isDirty: boolean) => {
     };
 
     if (isDirty) {
-      console.log('watch');
       router.events.on('routeChangeStart', pageChangeHandler);
       window.addEventListener('beforeunload', beforeUnloadhandler);
 

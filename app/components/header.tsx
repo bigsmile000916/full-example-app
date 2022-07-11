@@ -1,8 +1,5 @@
-import Link from 'next/link';
-import React from 'react';
 import { useAuth } from '../context/auth';
 import Button from './button';
-import Notification from './notification';
 import SearchBox from './search-box';
 import UserMenu from './user-menu';
 
@@ -16,7 +13,6 @@ const Header = () => {
       {user && (
         <>
           <Button href="/new">投稿</Button>
-          <Notification />
           <UserMenu />
         </>
       )}

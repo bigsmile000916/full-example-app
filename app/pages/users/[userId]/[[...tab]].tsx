@@ -1,15 +1,17 @@
 import { Tab } from '@headlessui/react';
+import { User } from '@shared/types/user';
 import classNames from 'classnames';
 import { format } from 'date-fns';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
-import Avatar from '../../components/avatar';
-import Button from '../../components/button';
-import Layout from '../../components/layout';
-import UsersPostList from '../../components/users-post-list';
-import { useRequireAuth } from '../../lib/auth';
-import { NextPageWithLayout } from '../_app';
+import Avatar from '../../../components/avatar';
+import Button from '../../../components/button';
+import Layout from '../../../components/layout';
+import UsersPostList from '../../../components/users-post-list';
+import { adminDB } from '../../../lib/firebase/server';
+import { NextPageWithLayout } from '../../_app';
 
 const tabs = [
   {
@@ -22,16 +24,35 @@ const tabs = [
   },
 ];
 
-const Profile: NextPageWithLayout = () => {
+export const getStaticPaths: GetStaticPaths = () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};
+
+export const getStaticProps: GetStaticProps<{
+  user: User;
+}> = async (context) => {
+  const snap = await adminDB.doc(`users/${context.params?.userId}`).get();
+
+  console.log(snap.data());
+
+  return {
+    revalidate: 60,
+    props: {
+      user: (snap.data() as User) || null,
+    },
+  };
+};
+
+const Profile: NextPageWithLayout<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ user }) => {
   const router = useRouter();
-  const { user } = useRequireAuth();
   const activeIndex = tabs.findIndex(
     (tab) => tab.href === router.query.tab?.[0]
   );
-
-  if (!router.isReady || !user) {
-    return null;
-  }
 
   return (
     <div>
@@ -57,14 +78,16 @@ const Profile: NextPageWithLayout = () => {
               {format(user.createdAt, 'yyyy年MM月dd日作成')}
             </p>
           </div>
-          <Button href="/profile/edit">編集</Button>
+          <Button level="secondary" href="/profile/edit">
+            編集
+          </Button>
         </div>
 
         <p className="mb-6">{user.description}</p>
 
         <Tab.Group
           selectedIndex={activeIndex}
-          onChange={(i) => router.replace(`/profile/${tabs[i].href}`)}
+          onChange={(i) => router.replace(`/users/${user.id}/${tabs[i].href}`)}
         >
           <Tab.List className="border-b border-slate-700">
             {tabs.map((tab) => (
@@ -83,7 +106,7 @@ const Profile: NextPageWithLayout = () => {
           </Tab.List>
           <Tab.Panels className="py-4">
             <Tab.Panel>
-              <UsersPostList />
+              <UsersPostList userId={user.id} />
             </Tab.Panel>
             <Tab.Panel>likes</Tab.Panel>
           </Tab.Panels>

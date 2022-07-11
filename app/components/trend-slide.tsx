@@ -71,11 +71,8 @@ const TrendSlide = () => {
               </h2>
               <div className="space-x-4 flex">
                 <button className="font-bold flex items-center bg-white rounded-full py-2 px-5 text-blue-500 tracking-wide">
-                  <span className="mr-2">再生</span>
+                  <span className="mr-2">読む</span>
                   <PlayIcon className="w-7 h-7 -mr-3" />
-                </button>
-                <button className="border border-white text-white rounded-full py-2 px-5 tracking-wide">
-                  探索
                 </button>
               </div>
             </div>
