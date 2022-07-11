@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import useSWR from 'swr/immutable';
 import { db } from './firebase/client';
+import { uploadImage } from './storage';
 
 export const useTrendPosts = () => {
   const { data, error } = useSWR<Post[]>('/trend-posts', () => {
@@ -56,12 +57,18 @@ export const useUsersPosts = (userId?: string) => {
   };
 };
 
-export const createPost = (
-  data: Pick<Post, 'title' | 'body' | 'authorId' | 'coverUrl'>
+export const createPost = async (
+  data: Pick<Post, 'title' | 'body' | 'authorId' | 'coverUrl' | 'category'>
 ) => {
   const ref = doc(collection(db, 'posts'));
+  const id = ref.id;
+
+  if (data.coverUrl?.match(/^data/)) {
+    data.coverUrl = await uploadImage(id, data.coverUrl);
+  }
+
   const post: Post = {
-    id: ref.id,
+    id,
     createdAt: Date.now(),
     updatedAt: Date.now(),
     likeCount: 0,
