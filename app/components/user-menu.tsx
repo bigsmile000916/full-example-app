@@ -5,6 +5,17 @@ import { logout, useRequireAuth } from '../lib/auth';
 import DropdownLinkItem from './dropdown-link-item';
 import ThemeSwitch from './theme-switch';
 
+const items = [
+  {
+    label: 'プロフィール編集',
+    href: '/profile/edit',
+  },
+  {
+    label: '設定',
+    href: '/settings',
+  },
+];
+
 const UserMenu = () => {
   const { user } = useRequireAuth();
 
@@ -26,35 +37,28 @@ const UserMenu = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-slate-700 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <ThemeSwitch />
+        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-slate-600 rounded-md bg-slate-700 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="px-3 py-2">
+            <ThemeSwitch />
+          </div>
           <div className="px-1 py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <DropdownLinkItem
-                  href="/profile/edit"
-                  className={classNames(
-                    active && 'bg-blue-500 text-white',
-                    'group flex w-full items-center rounded-md px-2 py-2 text-sm'
-                  )}
-                >
-                  Edit
-                </DropdownLinkItem>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <DropdownLinkItem
-                  className={classNames(
-                    active && 'bg-blue-500 text-white',
-                    'group flex w-full items-center rounded-md px-2 py-2 text-sm'
-                  )}
-                  href="/settings"
-                >
-                  Settings
-                </DropdownLinkItem>
-              )}
-            </Menu.Item>
+            {items.map((item) => (
+              <Menu.Item key={item.label}>
+                {({ active }) => (
+                  <DropdownLinkItem
+                    href={item.href}
+                    className={classNames(
+                      active && 'bg-blue-500 text-white',
+                      'group flex w-full items-center rounded-md px-2 py-2 text-sm'
+                    )}
+                  >
+                    {item.label}
+                  </DropdownLinkItem>
+                )}
+              </Menu.Item>
+            ))}
+          </div>
+          <div className="px-1 py-1">
             <Menu.Item>
               {({ active }) => (
                 <button
@@ -64,7 +68,7 @@ const UserMenu = () => {
                     'group flex w-full items-center rounded-md px-2 py-2 text-sm'
                   )}
                 >
-                  Signout
+                  ログアウト
                 </button>
               )}
             </Menu.Item>

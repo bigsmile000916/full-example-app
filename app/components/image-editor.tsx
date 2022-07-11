@@ -5,6 +5,7 @@ import { ChangeEvent, Fragment, useCallback, useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { useDropzone } from 'react-dropzone';
 import { useController, UseControllerProps } from 'react-hook-form';
+import Button from './button';
 
 const sizes = {
   cover: {
@@ -185,24 +186,20 @@ const ImageEditor = <T,>({
                     defaultValue="1.5"
                     step="0.1"
                     onChange={handleScale}
+                    className="w-full mt-4"
                   />
 
-                  <div className="mt-4 flex space-x-4">
-                    <button
-                      ref={cropButtonRef}
+                  <div className="mt-4 flex space-x-4 justify-end">
+                    <Button
+                      level="secondary"
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={crop}
-                    >
-                      Crop
-                    </button>
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Close
-                    </button>
+                      キャンセル
+                    </Button>
+                    <Button ref={cropButtonRef} type="button" onClick={crop}>
+                      完了
+                    </Button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

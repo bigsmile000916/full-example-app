@@ -11,8 +11,7 @@ import { NextPageWithLayout } from './_app';
 
 const ContactPage: NextPageWithLayout = () => {
   const {
-    register,
-    watch,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<Contact>();
@@ -23,39 +22,39 @@ const ContactPage: NextPageWithLayout = () => {
 
   return (
     <div className="container">
-      <PageTitle>Contact</PageTitle>
+      <PageTitle>お問合せ</PageTitle>
       <form className="space-y-4" onSubmit={handleSubmit(submit)}>
         <Input
-          label="Name"
+          label="名前"
           autoComplete="name"
-          type="text"
-          errors={errors}
-          {...register('name', {
-            required: 'required',
-          })}
+          name="name"
+          control={control}
+          rules={{ required: formErrorMessages.required }}
         />
 
         <Input
-          label="Email"
+          label="メールアドレス"
           autoComplete="email"
           type="text"
-          errors={errors}
-          {...register('email', {
-            required: 'required',
-          })}
+          name="email"
+          control={control}
+          rules={{
+            required: formErrorMessages.required,
+          }}
         />
 
         <TextArea
-          label="Body"
-          currentLength={watch('body')?.length}
-          limitLength={400}
-          {...register('body', {
-            required: 'required',
+          label="内容"
+          name="body"
+          control={control}
+          rows={10}
+          rules={{
+            required: formErrorMessages.required,
             maxLength: formErrorMessages.maxLength(400),
-          })}
+          }}
         />
 
-        <Button disabled={isSubmitting}>Submit</Button>
+        <Button disabled={isSubmitting}>送信</Button>
       </form>
     </div>
   );

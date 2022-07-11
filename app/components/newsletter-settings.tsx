@@ -3,7 +3,7 @@ import React from 'react';
 const NewsletterSettings = () => {
   return (
     <div>
-      <h2>Newsletter</h2>
+      <h2>メール通知</h2>
       <label>
         <input type="checkbox" />
         <span>お知らせ</span>

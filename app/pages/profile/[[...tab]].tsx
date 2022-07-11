@@ -11,11 +11,11 @@ import { NextPageWithLayout } from '../_app';
 
 const tabs = [
   {
-    label: 'Posts',
+    label: '投稿',
     href: 'posts',
   },
   {
-    label: 'Likes',
+    label: 'いいね',
     href: 'likes',
   },
 ];
@@ -44,7 +44,7 @@ const Profile: NextPageWithLayout = () => {
       </div>
 
       <div className="container">
-        <div className="flex items-center -mt-2 mb-6">
+        <div className="flex items-center -mt-2 mb-4">
           <div className="rounded-full bg-slate-900 p-1">
             <Avatar src={user.photoUrl} size="xl" />
           </div>
@@ -52,21 +52,10 @@ const Profile: NextPageWithLayout = () => {
             <h2 className="text-xl font-bold">{user.name}</h2>
             <p className="text-slate-500">@{user.handleName}</p>
           </div>
-          <Button href="/profile/edit">Edit Profile</Button>
+          <Button href="/profile/edit">編集</Button>
         </div>
 
-        <p>{user.description}</p>
-
-        <div className="flex space-x-4 mb-6">
-          <p>
-            <span className="font-bold mr-2">{user.followCount}</span>
-            <span className="text-slate-500">Following</span>
-          </p>
-          <p>
-            <span className="font-bold mr-2">{user.followerCount}</span>
-            <span className="text-slate-500">Followers</span>
-          </p>
-        </div>
+        <p className="mb-6">{user.description}</p>
 
         <Tab.Group
           selectedIndex={activeIndex}

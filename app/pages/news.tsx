@@ -30,7 +30,7 @@ const News: NextPageWithLayout<
 > = ({ posts }) => {
   return (
     <div className="container">
-      <PageTitle>News</PageTitle>
+      <PageTitle>最新の投稿</PageTitle>
 
       <div className="space-y-4">
         {posts.map((post) => (

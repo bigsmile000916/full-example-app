@@ -7,21 +7,20 @@ import ImageEditor from '../components/image-editor';
 import Input from '../components/input';
 import Layout from '../components/layout';
 import PageTitle from '../components/page-title';
+import Select from '../components/select';
 import TextArea from '../components/textarea';
 import { useRequireAuth } from '../lib/auth';
 import useFormGuard from '../lib/form-guard';
-import { createPost } from '../lib/post';
+import { CategoryOptions, createPost } from '../lib/post';
 import { formErrorMessages } from '../lib/validate';
 import { NextPageWithLayout } from './_app';
 
 const New: NextPageWithLayout = () => {
   const {
-    register,
     reset,
     handleSubmit,
     control,
-    watch,
-    formState: { errors, isDirty, isSubmitting },
+    formState: { isDirty, isSubmitting },
   } = useForm<Post>();
 
   const { user } = useRequireAuth();
@@ -40,56 +39,62 @@ const New: NextPageWithLayout = () => {
       authorId: user.id,
     })
       .then(() => {
-        console.log('success');
         reset(undefined);
-        toast.success('Saved');
+        toast.success('投稿しました');
       })
       .catch((e) => console.log(e));
   };
 
   return (
     <div className="container">
-      <PageTitle>New</PageTitle>
+      <PageTitle>投稿</PageTitle>
 
       <form onSubmit={handleSubmit(submit)} className="grid grid-cols-3 gap-4">
         <div className="col-span-2 space-y-4">
           <div>
             <Input
-              {...register('title', {
-                required: formErrorMessages.required,
-              })}
-              errors={errors}
-              label="Title"
+              name="title"
+              control={control}
+              label="タイトル"
               type="text"
               autoComplete="off"
-              className="w-full"
+              defaultValue=""
+              rules={{
+                required: formErrorMessages.required,
+              }}
             />
           </div>
 
           <div>
             <TextArea
-              label="Body"
+              label="本文"
               rows={16}
-              limitLength={maxLength}
-              errors={errors}
-              currentLength={watch('body')?.length}
-              {...register('body', {
+              name="body"
+              control={control}
+              defaultValue=""
+              rules={{
                 required: formErrorMessages.required,
                 maxLength: formErrorMessages.maxLength(maxLength),
-              })}
+              }}
             />
           </div>
         </div>
 
-        <div className="col-span-1">
+        <div className="col-span-1 space-y-4">
           <ImageEditor
             name="coverUrl"
             type="cover"
             control={control}
             defaultValue=""
           />
-          <div className="mt-4">
-            <Button disabled={isSubmitting}>Post</Button>
+          <Select
+            name="category"
+            options={CategoryOptions}
+            control={control}
+            defaultValue=""
+          />
+          <div>
+            <Button disabled={isSubmitting}>送信</Button>
           </div>
         </div>
       </form>

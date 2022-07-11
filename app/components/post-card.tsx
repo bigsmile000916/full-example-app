@@ -1,6 +1,7 @@
 import { ChatIcon, HeartIcon } from '@heroicons/react/outline';
 import { Post } from '@shared/types/post';
 import { formatDistanceToNowStrict } from 'date-fns';
+import { ja } from 'date-fns/locale';
 import React from 'react';
 import { FC } from 'react';
 import { useUser } from '../lib/user';
@@ -37,6 +38,7 @@ const PostCard: FC<Props> = ({ post }) => {
             <span className="ml-3">
               {formatDistanceToNowStrict(post.createdAt!, {
                 addSuffix: true,
+                locale: ja,
               })}
             </span>
           </p>

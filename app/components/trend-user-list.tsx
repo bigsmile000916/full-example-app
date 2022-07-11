@@ -23,9 +23,6 @@ const TrendUserList = () => {
               @{user.handleName}
             </p>
           </div>
-          <button className="rounded-full text-sm bg-blue-500 text-white px-5 py-2">
-            Follow
-          </button>
         </li>
       ))}
     </ul>

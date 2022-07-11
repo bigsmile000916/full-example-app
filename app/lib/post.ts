@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Post } from '@shared/types/post';
+import { Category, Post } from '@shared/types/post';
 import {
   collection,
   doc,
@@ -71,3 +71,21 @@ export const createPost = (
 
   return setDoc(ref, post);
 };
+
+export const CategoryOptions: {
+  value: Category;
+  label: string;
+}[] = [
+  {
+    value: 'technology',
+    label: 'テクノロジー',
+  },
+  {
+    value: 'entertainment',
+    label: 'エンターテイメント',
+  },
+  {
+    value: 'politics',
+    label: '政治',
+  },
+];

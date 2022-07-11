@@ -1,3 +1,5 @@
+export type Category = 'technology' | 'politics' | 'entertainment';
+
 export type Post = {
   id: string;
   title: string;
@@ -8,4 +10,5 @@ export type Post = {
   likeCount: number;
   commentCount: number;
   coverUrl: string;
+  category: Category;
 };

@@ -11,5 +11,6 @@ export const mockTrendPosts: Post[] = [...new Array(4)].map((_) => {
     authorId: faker.datatype.uuid(),
     likeCount: faker.datatype.number(1000),
     commentCount: faker.datatype.number(100),
+    body: faker.lorem.paragraphs(),
   };
 });

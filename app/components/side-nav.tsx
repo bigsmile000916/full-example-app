@@ -14,41 +14,41 @@ import Logo from './logo';
 const mainItems = [
   {
     icon: HomeIcon,
-    label: 'Home',
+    label: 'ホーム',
     href: '/',
   },
   {
     icon: RssIcon,
-    label: 'News',
+    label: '最新の投稿',
     href: '/news',
   },
   {
     icon: HeartIcon,
-    label: 'Likes',
+    label: 'お気に入り',
     href: '/likes',
   },
   {
     icon: UserIcon,
-    label: 'Profile',
+    label: 'プロフィール',
     href: '/profile',
   },
 ];
 
 const subItems = [
   {
-    label: 'About',
+    label: 'サービスについて',
     href: '/about',
   },
   {
-    label: 'Terms of service',
+    label: '利用規約',
     href: '/terms',
   },
   {
-    label: 'Privacy policy',
+    label: 'プライバシーポリシー',
     href: '/privacy',
   },
   {
-    label: 'Contact',
+    label: 'お問い合わせ',
     href: '/contact',
   },
 ];
@@ -83,7 +83,7 @@ const SideNav = () => {
 
         <button className="flex space-x-4 py-4 text-pink-700">
           <LogoutIcon className="w-6 h-6" />
-          <span>Logout</span>
+          <span>ログアウト</span>
         </button>
       </div>
     </div>

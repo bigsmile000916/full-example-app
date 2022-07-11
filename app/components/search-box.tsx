@@ -8,7 +8,7 @@ const SearchBox = () => {
       <input
         type="text"
         className="border-none bg-transparent flex-1 focus:ring-0 text-slate-200"
-        placeholder="Tap to Search"
+        placeholder="検索"
         autoComplete="off"
       />
     </form>

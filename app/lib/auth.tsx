@@ -32,6 +32,7 @@ export const useRequireAuth = () => {
   const router = useRouter();
 
   if (!user && !isLoading) {
+    console.log(user);
     router.push('/signin');
   }
 

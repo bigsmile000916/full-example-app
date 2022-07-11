@@ -10,7 +10,7 @@ const Settings: NextPageWithLayout = () => {
     <div className="container">
       <PageTitle>Settings</PageTitle>
 
-      <div className="mt-6">
+      <div>
         <NewsletterSettings />
         <DeleteAccountForm />
       </div>
