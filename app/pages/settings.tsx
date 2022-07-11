@@ -1,3 +1,4 @@
+import { NextSeo } from 'next-seo';
 import React, { ReactElement } from 'react';
 import DeleteAccountForm from '../components/delete-account-form';
 import Layout from '../components/layout';
@@ -8,6 +9,7 @@ import { NextPageWithLayout } from './_app';
 const Settings: NextPageWithLayout = () => {
   return (
     <div className="container">
+      <NextSeo title="設定" />
       <PageTitle>Settings</PageTitle>
 
       <div>

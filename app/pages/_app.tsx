@@ -16,6 +16,12 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+const SiteName = 'Lorem';
+const ORIGIN =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://xxx.com';
+
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
@@ -23,17 +29,21 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <ThemeProvider attribute="class" enableColorScheme={false}>
       <AuthProvider>
         <DefaultSeo
-          titleTemplate="%s | Lorem"
-          defaultTitle="Lorem"
+          titleTemplate={`%s | ${SiteName}`}
+          defaultTitle={SiteName}
+          description="デモサイト"
           openGraph={{
             type: 'website',
-            locale: 'en_IE',
-            url: 'https://www.url.ie/',
-            site_name: 'SiteName',
+            url: ORIGIN,
+            site_name: SiteName,
+            images: [
+              {
+                url: ORIGIN + '/ogp.png',
+              },
+            ],
           }}
           twitter={{
-            handle: '@handle',
-            site: '@site',
+            site: '@d151005',
             cardType: 'summary_large_image',
           }}
         />

@@ -1,3 +1,4 @@
+import { NextSeo } from 'next-seo';
 import { ReactElement } from 'react';
 import Layout from '../../components/layout';
 import PageTitle from '../../components/page-title';
@@ -14,6 +15,7 @@ const Edit: NextPageWithLayout = () => {
 
   return (
     <div className="container">
+      <NextSeo title="プロフィール編集" />
       <PageTitle>プロフィール編集</PageTitle>
       <UserForm mode="edit" user={user} />
     </div>

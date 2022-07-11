@@ -1,5 +1,6 @@
 import { Tab } from '@headlessui/react';
 import classNames from 'classnames';
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 import Avatar from '../../components/avatar';
@@ -33,6 +34,7 @@ const Profile: NextPageWithLayout = () => {
 
   return (
     <div>
+      <NextSeo title="プロフィール" />
       <div className="bg-black aspect-[16/4]">
         {user.coverUrl && (
           <img
