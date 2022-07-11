@@ -50,7 +50,6 @@ export const createAccount = (fbUser: FbUser) => {
     name: fbUser.displayName!,
     photoUrl: fbUser.photoURL!,
     coverUrl: '',
-    handleName: 'xxx',
     description: '',
     followCount: 0,
     followerCount: 0,

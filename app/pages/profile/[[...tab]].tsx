@@ -1,5 +1,6 @@
 import { Tab } from '@headlessui/react';
 import classNames from 'classnames';
+import { format } from 'date-fns';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
@@ -52,7 +53,9 @@ const Profile: NextPageWithLayout = () => {
           </div>
           <div className="ml-4 flex-1">
             <h2 className="text-xl font-bold">{user.name}</h2>
-            <p className="text-slate-500">@{user.handleName}</p>
+            <p className="text-slate-500">
+              {format(user.createdAt, 'yyyy年MM月dd日作成')}
+            </p>
           </div>
           <Button href="/profile/edit">編集</Button>
         </div>

@@ -71,17 +71,6 @@ const UserForm: FC<{
         </div>
       </div>
       <Input
-        label="ハンドルネーム"
-        autoComplete="off"
-        control={control}
-        defaultValue=""
-        name="handleName"
-        rules={{
-          required: formErrorMessages.required,
-          maxLength: formErrorMessages.maxLength(20),
-        }}
-      />
-      <Input
         label="名前"
         autoComplete="name"
         control={control}

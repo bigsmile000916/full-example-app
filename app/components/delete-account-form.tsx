@@ -20,16 +20,14 @@ const DeleteAccountForm = () => {
   return (
     <div>
       <h2 className="mb-4">アカウント削除</h2>
-      <p className="text-slate-200">
-        ハンドルネーム({user.handleName})を入力してください
-      </p>
+      <p className="text-slate-200">ユーザーID({user.id})を入力してください</p>
       <div className="flex mt-4">
         <Input
-          name="handleName"
+          name="name"
           control={control}
           rules={{
             required: true,
-            pattern: new RegExp('^' + user.handleName + '$'),
+            pattern: new RegExp('^' + user.id + '$'),
           }}
         />
         <button

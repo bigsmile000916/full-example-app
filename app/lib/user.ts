@@ -9,7 +9,6 @@ export const useTrendUsers = () => {
     return [...new Array(5)].map((_) => {
       const user: User = {
         id: faker.datatype.uuid(),
-        handleName: faker.internet.userName(),
         name: faker.name.findName(),
         photoUrl: faker.image.avatar(),
         coverUrl: faker.image.abstract(800, 400),
@@ -34,7 +33,6 @@ export const useUser = (id?: string) => {
   const { data, error } = useSWR<User>(id && `/users/${id}`, async () => {
     const user: User = {
       id: id!,
-      handleName: faker.internet.userName(),
       name: faker.name.findName(),
       photoUrl: faker.image.avatar(),
       coverUrl: faker.image.abstract(800, 400),

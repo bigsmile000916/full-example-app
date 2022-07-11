@@ -19,9 +19,7 @@ const TrendUserList = () => {
           <Avatar src={user.photoUrl} size="md" />
           <div className="flex-1 leading-none overflow-hidden">
             <p className="mb-1 font-medium truncate">{user.name}</p>
-            <p className="text-slate-400 text-sm truncate">
-              @{user.handleName}
-            </p>
+            <p className="text-slate-400 text-sm truncate">@{user.name}</p>
           </div>
         </li>
       ))}
