@@ -1,6 +1,9 @@
 import algoliasearch from 'algoliasearch/lite';
 import { FC, ReactNode } from 'react';
-import { InstantSearch } from 'react-instantsearch-hooks-web';
+import {
+  InstantSearch,
+  InstantSearchProps,
+} from 'react-instantsearch-hooks-web';
 
 export const searchClient = algoliasearch(
   'EA4MJUGYGP',
@@ -12,7 +15,11 @@ const AlgoliaWrapper: FC<{
   indexName: string;
 }> = ({ children, indexName }) => {
   return (
-    <InstantSearch searchClient={searchClient} indexName={indexName}>
+    <InstantSearch
+      searchClient={searchClient}
+      indexName={indexName}
+      routing={false}
+    >
       {children}
     </InstantSearch>
   );

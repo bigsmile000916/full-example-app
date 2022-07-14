@@ -1,6 +1,7 @@
 import { Post } from '@shared/types/post';
-import { Fragment, ReactElement, useEffect } from 'react';
 import debounce from 'debounce';
+import { useRouter } from 'next/router';
+import { ReactElement } from 'react';
 import {
   Configure,
   Hits,
@@ -9,17 +10,14 @@ import {
   SearchBox,
   SearchBoxProps,
   SortBy,
-  useConfigure,
   useInstantSearch,
-  useSearchBox,
 } from 'react-instantsearch-hooks-web';
-import AlgoliaWrapper, { searchClient } from '../algolia/wrapper';
+import AlgoliaWrapper from '../algolia/wrapper';
 import Layout from '../components/layout';
 import PageTitle from '../components/page-title';
 import PostCard from '../components/post-card';
 import { getCategoryLabel } from '../lib/post';
 import { NextPageWithLayout } from './_app';
-import { useRouter } from 'next/router';
 
 const SearchResults = () => {
   const { results } = useInstantSearch();
@@ -54,18 +52,10 @@ const SearchResults = () => {
 const Search: NextPageWithLayout = () => {
   const router = useRouter();
 
-  const search: SearchBoxProps['queryHook'] = (query, seaerch) => {
-    seaerch(query);
-  };
-
-  if (!router.isReady) {
-    return null;
-  }
-
   return (
     <div className="container">
       <AlgoliaWrapper indexName="posts">
-        <Configure hitsPerPage={20} />
+        <Configure query={router.query.q as string} hitsPerPage={20} />
 
         <div className="lg:grid gap-6 grid-cols-3">
           <div className="col-span-2">
@@ -81,7 +71,7 @@ const Search: NextPageWithLayout = () => {
             </div>
           </div>
           <div className="col-span-1 space-y-6">
-            <div>
+            {/* <div>
               <h2 className="mb-4">キーワード</h2>
               <SearchBox
                 queryHook={debounce(search, 1000)}
@@ -89,7 +79,7 @@ const Search: NextPageWithLayout = () => {
                   input: 'rounded bg-transparent w-full',
                 }}
               />
-            </div>
+            </div> */}
 
             <div>
               <h2 className="mb-4">並び替え</h2>
