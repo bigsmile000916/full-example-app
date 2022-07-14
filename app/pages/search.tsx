@@ -1,34 +1,52 @@
 import { Post } from '@shared/types/post';
-import { useRouter } from 'next/router';
-import { ReactElement } from 'react';
-import { useHits, Configure, Pagination } from 'react-instantsearch-hooks-web';
-import AlgoliaWrapper from '../algolia/wrapper';
+import { Fragment, ReactElement, useEffect } from 'react';
+import debounce from 'debounce';
+import {
+  Configure,
+  Hits,
+  Pagination,
+  RefinementList,
+  SearchBox,
+  SearchBoxProps,
+  SortBy,
+  useConfigure,
+  useInstantSearch,
+  useSearchBox,
+} from 'react-instantsearch-hooks-web';
+import AlgoliaWrapper, { searchClient } from '../algolia/wrapper';
 import Layout from '../components/layout';
 import PageTitle from '../components/page-title';
 import PostCard from '../components/post-card';
+import { getCategoryLabel } from '../lib/post';
 import { NextPageWithLayout } from './_app';
+import { useRouter } from 'next/router';
 
 const SearchResults = () => {
-  const router = useRouter();
-  const { hits, results } = useHits<Post>();
+  const { results } = useInstantSearch();
 
   return (
     <div>
-      <div className="text-center">
-        <PageTitle>「{router.query.query}」の検索結果</PageTitle>
-      </div>
-      <p className="text-center mb-4 text-sm text-slate-400">
-        {results?.nbHits}件見つかりました
-      </p>
-      <div className="space-y-4">
-        {hits?.length ? (
-          hits.map((post) => <PostCard key={post.id} post={post} />)
-        ) : (
-          <p className="text-center my-10 text-slate-400">
-            検索結果が見つかりませんでした
-          </p>
-        )}
-      </div>
+      {results.query && (
+        <div className="text-center mb-6">
+          <PageTitle>「{results.query}」の検索結果</PageTitle>
+          {results?.nbHits ? (
+            <p className="text-sm text-slate-400">
+              {results?.nbHits}件見つかりました
+            </p>
+          ) : (
+            <p className="text-center my-10 text-slate-400">
+              検索結果が見つかりませんでした
+            </p>
+          )}
+        </div>
+      )}
+
+      <Hits<Post>
+        classNames={{
+          list: 'space-y-4',
+        }}
+        hitComponent={({ hit }) => <PostCard post={hit} />}
+      />
     </div>
   );
 };
@@ -36,23 +54,84 @@ const SearchResults = () => {
 const Search: NextPageWithLayout = () => {
   const router = useRouter();
 
-  if (!router.query.query) {
+  const search: SearchBoxProps['queryHook'] = (query, seaerch) => {
+    seaerch(query);
+  };
+
+  if (!router.isReady) {
     return null;
   }
 
   return (
-    <div className="container max-w-md">
+    <div className="container">
       <AlgoliaWrapper indexName="posts">
-        <Configure query={router.query.query as string} hitsPerPage={20} />
-        <SearchResults />
-        <div className="mt-4">
-          <Pagination
-            classNames={{
-              list: 'flex items-center space-x-4 justify-center',
-              item: 'p-1',
-              disabledItem: 'opacity-30',
-            }}
-          />
+        <Configure hitsPerPage={20} />
+
+        <div className="lg:grid gap-6 grid-cols-3">
+          <div className="col-span-2">
+            <SearchResults />
+            <div className="mt-4">
+              <Pagination
+                classNames={{
+                  list: 'flex items-center space-x-4 justify-center',
+                  item: 'p-1',
+                  disabledItem: 'opacity-30',
+                }}
+              />
+            </div>
+          </div>
+          <div className="col-span-1 space-y-6">
+            <div>
+              <h2 className="mb-4">キーワード</h2>
+              <SearchBox
+                queryHook={debounce(search, 1000)}
+                classNames={{
+                  input: 'rounded bg-transparent w-full',
+                }}
+              />
+            </div>
+
+            <div>
+              <h2 className="mb-4">並び替え</h2>
+              <SortBy
+                classNames={{
+                  select: 'rounded border bg-transparent w-full',
+                }}
+                items={[
+                  {
+                    label: '新着順',
+                    value: 'posts',
+                  },
+                  {
+                    label: '古い順',
+                    value: 'posts_createdAt_asc',
+                  },
+                ]}
+              />
+            </div>
+
+            <div>
+              <h2 className="mb-4">カテゴリ</h2>
+              <RefinementList
+                transformItems={(items) => {
+                  return items.map((item) => {
+                    return {
+                      ...item,
+                      label: getCategoryLabel(item.value),
+                    };
+                  });
+                }}
+                classNames={{
+                  checkbox: 'rounded border bg-transparent mr-2',
+                  label: 'flex items-center',
+                  labelText: 'flex-1',
+                  count: 'ml-2',
+                  list: 'space-y-1',
+                }}
+                attribute="category"
+              />
+            </div>
+          </div>
         </div>
       </AlgoliaWrapper>
     </div>

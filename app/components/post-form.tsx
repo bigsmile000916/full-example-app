@@ -1,4 +1,5 @@
 import { Post } from '@shared/types/post';
+import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -10,7 +11,12 @@ import Select from '../components/select';
 import TextArea from '../components/textarea';
 import { useRequireAuth } from '../lib/auth';
 import useFormGuard from '../lib/form-guard';
-import { CategoryOptions, createPost, updatePost } from '../lib/post';
+import {
+  CategoryOptions,
+  createPost,
+  deletePost,
+  updatePost,
+} from '../lib/post';
 import { formErrorMessages } from '../lib/validate';
 
 const PostForm: FC<{
@@ -25,12 +31,13 @@ const PostForm: FC<{
 
   const isEditMode = Boolean(post);
   const { user } = useRequireAuth();
+  const router = useRouter();
 
   useEffect(() => {
     if (post) {
       reset(post);
     }
-  }, [post]);
+  }, [post, reset]);
 
   useFormGuard(isDirty);
 
@@ -55,6 +62,14 @@ const PostForm: FC<{
       }).then(() => {
         reset(undefined);
         toast.success('投稿しました');
+      });
+    }
+  };
+
+  const handleDelete = () => {
+    if (window.confirm('本当に削除しますか？')) {
+      deletePost(post!.id).then(() => {
+        router.push('/');
       });
     }
   };
@@ -104,8 +119,17 @@ const PostForm: FC<{
           control={control}
           defaultValue=""
         />
-        <div>
-          <Button disabled={isSubmitting}>{post ? '更新' : '公開'}</Button>
+        <div className="text-right">
+          {post && (
+            <button
+              onClick={handleDelete}
+              type="button"
+              className="text-red-500 px-2 py-1 mr-4 text-sm"
+            >
+              削除
+            </button>
+          )}
+          <Button disabled={isSubmitting}>{post ? '保存' : '公開'}</Button>
         </div>
       </div>
     </form>

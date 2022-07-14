@@ -1,8 +1,15 @@
-import { initializeApp, getApps } from 'firebase/app';
+import { Post } from '@shared/types/post';
+import { User } from '@shared/types/user';
 import { Analytics, getAnalytics } from 'firebase/analytics';
-import { getFirestore } from 'firebase/firestore';
-import { getFunctions } from 'firebase/functions';
+import { getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import {
+  collection,
+  CollectionReference,
+  DocumentData,
+  getFirestore,
+} from 'firebase/firestore';
+import { getFunctions } from 'firebase/functions';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -28,3 +35,10 @@ export const db = getFirestore();
 export const functions = getFunctions();
 export const auth = getAuth();
 export const storage = getStorage();
+
+const createCollection = <T = DocumentData>(name: string) => {
+  return collection(db, name) as CollectionReference<T>;
+};
+
+export const postCollection = createCollection<Post>('posts');
+export const userCollection = createCollection<User>('users');

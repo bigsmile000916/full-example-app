@@ -5,6 +5,7 @@ import {
   HomeIcon,
   LogoutIcon,
   RssIcon,
+  SearchIcon,
   UserIcon,
 } from '@heroicons/react/outline';
 import Logo from './logo';
@@ -46,9 +47,9 @@ const SideNav = () => {
       href: '/news',
     },
     {
-      icon: HeartIcon,
-      label: 'お気に入り',
-      href: '/likes',
+      icon: SearchIcon,
+      label: '探す',
+      href: '/search',
     },
     {
       icon: UserIcon,

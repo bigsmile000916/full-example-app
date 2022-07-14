@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Category, Post } from '@shared/types/post';
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -11,6 +12,7 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
+import toast from 'react-hot-toast';
 import useSWR from 'swr/immutable';
 import { db } from './firebase/client';
 import { uploadImage } from './storage';
@@ -95,10 +97,11 @@ export const updatePost = async (id: string, data: Partial<Post>) => {
   }
 
   const post: Partial<Post> = {
-    id,
     updatedAt: Date.now(),
     ...data,
   };
+
+  console.log(post);
 
   return updateDoc(ref, post);
 };
@@ -120,6 +123,17 @@ export const CategoryOptions: {
     label: '政治',
   },
 ];
+
+export const deletePost = (id: string) => {
+  const ref = doc(db, `/posts/${id}`);
+  return deleteDoc(ref).then(() => {
+    toast.success('記事を削除しました');
+  });
+};
+
+export const getCategoryLabel = (value: string) => {
+  return CategoryOptions.find((item) => item.value === value)?.label || '';
+};
 
 export const getPost = async (id: string): Promise<Post> => {
   const ref = doc(db, `posts/${id}`);

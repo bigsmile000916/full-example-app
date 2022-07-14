@@ -1,8 +1,8 @@
-import React, { FC, ReactNode } from 'react';
 import algoliasearch from 'algoliasearch/lite';
+import { FC, ReactNode } from 'react';
 import { InstantSearch } from 'react-instantsearch-hooks-web';
 
-const searchClient = algoliasearch(
+export const searchClient = algoliasearch(
   'EA4MJUGYGP',
   'f0d290029d20ac262462213d1c354247'
 );

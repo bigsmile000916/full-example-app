@@ -2,11 +2,12 @@ export type Category = 'technology' | 'politics' | 'entertainment';
 
 export type Post = {
   id: string;
+  createdAt: number;
+  authorId: string;
+
   title: string;
   body: string;
-  createdAt: number;
   updatedAt: number | null;
-  authorId: string;
   likeCount: number;
   commentCount: number;
   coverUrl: string;

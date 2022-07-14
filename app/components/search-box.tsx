@@ -11,9 +11,7 @@ const SearchBox = () => {
   const { register, handleSubmit } = useForm<FormData>();
 
   const search = ({ query }: FormData) => {
-    if (query) {
-      router.push(`/search?query=${query}`);
-    }
+    router.push(`/search?q=${query}`);
   };
 
   return (

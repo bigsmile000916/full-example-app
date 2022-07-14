@@ -8,9 +8,10 @@ export const mockTrendPosts: Post[] = [...new Array(4)].map((_) => {
     coverUrl: faker.image.abstract(800, 450, true),
     createdAt: faker.date.past().getTime(),
     updatedAt: faker.date.past().getTime(),
+    category: 'technology',
     authorId: faker.datatype.uuid(),
     likeCount: faker.datatype.number(1000),
     commentCount: faker.datatype.number(100),
     body: faker.lorem.paragraphs(),
-  };
+  } as Post;
 });

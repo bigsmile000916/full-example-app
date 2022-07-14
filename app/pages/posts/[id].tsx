@@ -6,10 +6,7 @@ import { ReactElement } from 'react';
 import Avatar from '../../components/avatar';
 import Button from '../../components/button';
 import Layout from '../../components/layout';
-import PageTitle from '../../components/page-title';
-import UserForm from '../../components/user-form';
 import { useAuth } from '../../context/auth';
-import { useRequireAuth } from '../../lib/auth';
 import { adminDB } from '../../lib/firebase/server';
 import { useUser } from '../../lib/user';
 import { NextPageWithLayout } from '../_app';
@@ -63,13 +60,15 @@ const PostDetail: NextPageWithLayout<
           </Button>
         </div>
       )}
-      <div className="relative">
-        {post.coverUrl && (
+      <div className="relative mb-6">
+        {post.coverUrl ? (
           <img
             className="rounded-lg mb-6 block w-full"
             src={post.coverUrl}
             alt=""
           />
+        ) : (
+          <span className="aspect-[4/1] w-full block" />
         )}
 
         <div className="absolute rounded-lg bottom-0 top-0 inset-x-0 from-black bg-gradient-to-tr" />

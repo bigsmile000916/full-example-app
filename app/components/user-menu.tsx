@@ -7,6 +7,10 @@ import ThemeSwitch from './theme-switch';
 
 const items = [
   {
+    label: '投稿管理',
+    href: '/manage',
+  },
+  {
     label: 'プロフィール編集',
     href: '/profile/edit',
   },

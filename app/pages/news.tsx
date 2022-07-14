@@ -18,7 +18,6 @@ export const getStaticProps: GetStaticProps<{
   const posts = snap.docs.map((doc) => doc.data() as Post);
 
   return {
-    revalidate: 60,
     props: {
       posts,
     },
@@ -28,8 +27,6 @@ export const getStaticProps: GetStaticProps<{
 const News: NextPageWithLayout<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ posts }) => {
-  console.log(posts);
-
   return (
     <div className="container max-w-md">
       <PageTitle>最新の投稿</PageTitle>
