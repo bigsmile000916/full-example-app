@@ -32,7 +32,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 export const getStaticProps: GetStaticProps<{
-  user: User;
+  user: User | null;
 }> = async (context) => {
   const snap = await adminDB.doc(`users/${context.params?.userId}`).get();
 
@@ -53,6 +53,14 @@ const Profile: NextPageWithLayout<
   const activeIndex = tabs.findIndex(
     (tab) => tab.href === router.query.tab?.[0]
   );
+
+  if (!user) {
+    return (
+      <p className="container text-slate-600 text-center my-20">
+        該当のユーザーは存在しません
+      </p>
+    );
+  }
 
   return (
     <div>

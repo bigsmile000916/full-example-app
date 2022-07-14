@@ -5,7 +5,7 @@ export type Post = {
   title: string;
   body: string;
   createdAt: number;
-  updatedAt: number;
+  updatedAt: number | null;
   authorId: string;
   likeCount: number;
   commentCount: number;

@@ -46,7 +46,11 @@ export const useUser = (id?: string) => {
     const ref = doc(db, `users/${id}`);
     const snap = await getDoc(ref);
 
-    return (snap.data() as User) || user;
+    if (snap.exists()) {
+      return (snap.data() as User) || user;
+    } else {
+      throw 'データが存在しません';
+    }
   });
 
   return {

@@ -9,7 +9,7 @@ import { NextPageWithLayout } from './_app';
 
 export const getStaticProps: GetStaticProps<{
   posts: Post[];
-}> = async (context) => {
+}> = async () => {
   const snap = await adminDB
     .collection('posts')
     .orderBy('createdAt', 'desc')
@@ -28,8 +28,10 @@ export const getStaticProps: GetStaticProps<{
 const News: NextPageWithLayout<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ posts }) => {
+  console.log(posts);
+
   return (
-    <div className="container">
+    <div className="container max-w-md">
       <PageTitle>最新の投稿</PageTitle>
 
       <div className="space-y-4">

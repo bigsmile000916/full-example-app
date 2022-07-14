@@ -12,16 +12,13 @@ const UsersPostList: FC<{
   }
 
   return (
-    <div>
-      <h2>user posts</h2>
-      <ul className="grid grid-cols-2 gap-4">
-        {posts?.map((post) => (
-          <li key={post.id}>
-            <PostCard post={post} />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="grid grid-cols-2 gap-4">
+      {posts?.map((post) => (
+        <li key={post.id}>
+          <PostCard post={post} />
+        </li>
+      ))}
+    </ul>
   );
 };
 

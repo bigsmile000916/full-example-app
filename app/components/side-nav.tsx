@@ -10,6 +10,7 @@ import {
 import Logo from './logo';
 import SideNavItem from './side-nav-item';
 import { useAuth } from '../context/auth';
+import { logout } from '../lib/auth';
 
 const subItems = [
   {
@@ -83,10 +84,15 @@ const SideNav = () => {
           </p>
         </div>
 
-        <button className="flex space-x-4 py-4 text-pink-700">
-          <LogoutIcon className="w-6 h-6" />
-          <span>ログアウト</span>
-        </button>
+        {user && (
+          <button
+            onClick={logout}
+            className="flex space-x-4 py-4 text-pink-700"
+          >
+            <LogoutIcon className="w-6 h-6" />
+            <span>ログアウト</span>
+          </button>
+        )}
       </div>
     </div>
   );

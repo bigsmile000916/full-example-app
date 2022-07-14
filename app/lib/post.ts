@@ -3,10 +3,12 @@ import { Category, Post } from '@shared/types/post';
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   orderBy,
   query,
   setDoc,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 import useSWR from 'swr/immutable';
@@ -64,19 +66,41 @@ export const createPost = async (
   const id = ref.id;
 
   if (data.coverUrl?.match(/^data/)) {
-    data.coverUrl = await uploadImage(id, data.coverUrl);
+    data.coverUrl = await uploadImage(
+      `users/${data.authorId}/posts/${id}`,
+      data.coverUrl
+    );
   }
 
   const post: Post = {
     id,
     createdAt: Date.now(),
-    updatedAt: Date.now(),
+    updatedAt: null,
     likeCount: 0,
     commentCount: 0,
     ...data,
   };
 
   return setDoc(ref, post);
+};
+
+export const updatePost = async (id: string, data: Partial<Post>) => {
+  const ref = doc(db, `posts/${id}`);
+
+  if (data.coverUrl?.match(/^data/)) {
+    data.coverUrl = await uploadImage(
+      `users/${data.authorId}/posts/${id}`,
+      data.coverUrl
+    );
+  }
+
+  const post: Partial<Post> = {
+    id,
+    updatedAt: Date.now(),
+    ...data,
+  };
+
+  return updateDoc(ref, post);
 };
 
 export const CategoryOptions: {
@@ -96,3 +120,10 @@ export const CategoryOptions: {
     label: '政治',
   },
 ];
+
+export const getPost = async (id: string): Promise<Post> => {
+  const ref = doc(db, `posts/${id}`);
+  const snap = await getDoc(ref);
+
+  return snap.data() as Post;
+};
