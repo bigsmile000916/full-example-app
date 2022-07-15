@@ -75,7 +75,7 @@ const Profile: NextPageWithLayout<
 
       <div className="container">
         <div className="flex items-center -mt-2 mb-4">
-          <div className="rounded-full bg-slate-900 p-1">
+          <div className="rounded-full dark:bg-slate-900 bg-slate-100 p-1">
             <Avatar src={user.photoUrl} size="xl" />
           </div>
           <div className="ml-4 flex-1">
@@ -99,14 +99,14 @@ const Profile: NextPageWithLayout<
           selectedIndex={activeIndex}
           onChange={(i) => router.replace(`/users/${user.id}/${tabs[i].href}`)}
         >
-          <Tab.List className="border-b border-slate-700">
+          <Tab.List className="border-b dark:border-slate-700">
             {tabs.map((tab) => (
               <Tab
                 key={tab.label}
                 className={({ selected }) =>
                   classNames(
                     'px-4 py-2 rounded-t-md',
-                    selected && 'bg-slate-800'
+                    selected && 'dark:bg-slate-800 bg-slate-200'
                   )
                 }
               >
