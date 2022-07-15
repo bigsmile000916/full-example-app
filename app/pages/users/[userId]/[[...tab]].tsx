@@ -86,7 +86,11 @@ const Profile: NextPageWithLayout<
               {format(user.createdAt, 'yyyy年MM月dd日作成')}
             </p>
           </div>
-          <Button level="secondary" href="/profile/edit">
+          <Button
+            level="secondary"
+            href="/profile/edit"
+            className="hidden md:block"
+          >
             編集
           </Button>
         </div>

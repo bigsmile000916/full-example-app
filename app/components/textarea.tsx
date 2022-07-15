@@ -36,7 +36,7 @@ const TextArea = <T,>({
   return (
     <div>
       {label && (
-        <label htmlFor={name}>
+        <label className="block mb-1" htmlFor={name}>
           {label}
           {rules?.required && '*'}
         </label>

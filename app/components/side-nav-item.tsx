@@ -24,7 +24,9 @@ const SideNavItem: FC<{
         <a
           className={classNames(
             'flex items-center space-x-4 py-4',
-            active ? 'text-blue-500' : 'text-slate-300 hover:text-blue-200'
+            active
+              ? 'text-blue-500'
+              : 'dark:text-slate-300 text-slate-600 hover:dark:text-blue-200 hover:text-blue-400'
           )}
         >
           <item.icon className="w-5 h-5" />

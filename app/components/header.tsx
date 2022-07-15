@@ -16,7 +16,7 @@ const Header: FC<{
       <button className="md:hidden" onClick={handleMenuClick}>
         <MenuIcon className="w-5 h-5" />
       </button>
-      <div className="md:hidden">
+      <div className="md:hidden w-32 ml-2">
         <Logo />
       </div>
       <div className="hidden md:block">

@@ -1,5 +1,4 @@
 import { Post } from '@shared/types/post';
-import debounce from 'debounce';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 import {
@@ -7,8 +6,6 @@ import {
   Hits,
   Pagination,
   RefinementList,
-  SearchBox,
-  SearchBoxProps,
   SortBy,
   useInstantSearch,
 } from 'react-instantsearch-hooks-web';
@@ -16,6 +13,7 @@ import AlgoliaWrapper from '../algolia/wrapper';
 import Layout from '../components/layout';
 import PageTitle from '../components/page-title';
 import PostCard from '../components/post-card';
+import SearchBox from '../components/search-box';
 import { getCategoryLabel } from '../lib/post';
 import { NextPageWithLayout } from './_app';
 
@@ -54,6 +52,10 @@ const Search: NextPageWithLayout = () => {
 
   return (
     <div className="container">
+      <div className="md:hidden mb-6">
+        <SearchBox />
+      </div>
+
       <AlgoliaWrapper indexName="posts">
         <Configure query={router.query.q as string} hitsPerPage={20} />
 

@@ -47,7 +47,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             cardType: 'summary_large_image',
           }}
         />
-        <div className="text-slate-200 min-h-screen bg-slate-900">
+        <div className="dark:text-slate-200 min-h-screen dark:bg-slate-900 bg-slate-100 text-slate-800">
           {getLayout(<Component {...pageProps} />)}
         </div>
         <Toaster />

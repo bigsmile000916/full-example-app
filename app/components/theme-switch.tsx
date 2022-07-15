@@ -26,15 +26,14 @@ const ThemeSwitch = () => {
           {isDarkMode ? (
             <MonnIconFill className="w-6 h-6 text-yellow-400" />
           ) : (
-            <MoonIcon className="w-6 h-6 text-yellow-400 opacity-50" />
+            <MoonIcon className="w-6 h-6 text-yellow-500 opacity-50" />
           )}
         </Switch.Label>
         <Switch
           checked={isDarkMode}
           onChange={(isDark: boolean) => setTheme(isDark ? 'dark' : 'light')}
           className={classNames(
-            'relative border-none inline-flex h-[24px] w-[48px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75',
-            isDarkMode ? 'bg-slate-900' : 'bg-slate-900'
+            'relative border-none inline-flex h-[24px] w-[48px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 dark:bg-slate-900 bg-slate-400'
           )}
         >
           <span className="sr-only">Use setting</span>

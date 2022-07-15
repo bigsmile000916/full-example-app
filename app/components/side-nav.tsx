@@ -60,7 +60,7 @@ const SideMenu = () => {
   ];
 
   return (
-    <div className="bg-slate-800 shadow p-12 text-white h-full overflow-auto">
+    <div className="dark:bg-slate-800 bg-slate-200 shadow p-12 h-full overflow-auto">
       <div className="overflow-auto flex min-h-full flex-col">
         <p className="mb-10">
           <Logo />
@@ -72,7 +72,7 @@ const SideMenu = () => {
               <SideNavItem item={item} key={item.href} />
             ))}
           </ul>
-          <ul className="mt-6 border-t border-slate-700 py-8 space-y-3 text-slate-500">
+          <ul className="mt-6 border-t border-slate-700 py-8 space-y-3 dark:text-slate-500">
             {subItems.map((item) => (
               <li key={item.label}>
                 <Link href={item.href}>

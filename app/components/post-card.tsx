@@ -20,7 +20,7 @@ const PostCard: FC<Props> = ({ post }) => {
   }
 
   return (
-    <div className="rounded-lg bg-slate-800/80 p-4 relative">
+    <div className="rounded-lg dark:bg-slate-800 bg-slate-200 p-4 relative">
       <Link href={`/posts/${post.id}`}>
         <a className="absolute block inset-0" />
       </Link>
@@ -36,7 +36,7 @@ const PostCard: FC<Props> = ({ post }) => {
       <div className="flex mt-3">
         <Avatar src={user.photoUrl} />
         <div className="flex-1 ml-4">
-          <h2 className="text-slate-200 text-lg line-clamp-2">{post.title}</h2>
+          <h2 className="text-lg line-clamp-2">{post.title}</h2>
           <p className="text-slate-500">
             <span>{user.name}</span>
             <span className="ml-3">

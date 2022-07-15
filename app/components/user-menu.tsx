@@ -41,7 +41,7 @@ const UserMenu = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-slate-600 rounded-md bg-slate-700 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y dark:divide-slate-600 rounded-md dark:bg-slate-700 bg-slate-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="px-3 py-2">
             <ThemeSwitch />
           </div>

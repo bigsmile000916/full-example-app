@@ -44,9 +44,13 @@ const TrendSlide = () => {
       <Swiper
         modules={[Navigation, Pagination, Keyboard]}
         spaceBetween={50}
-        navigation
         keyboard
         loop
+        breakpoints={{
+          768: {
+            navigation: true,
+          },
+        }}
         pagination={{
           clickable: true,
           el: '#pagination',
@@ -57,7 +61,7 @@ const TrendSlide = () => {
         {items.map((item, i) => (
           <SwiperSlide
             key={i}
-            className="aspect-[16/6] rounded-3xl relative flex items-center px-16 overflow-hidden"
+            className="md:aspect-[16/6] aspect-video rounded-3xl relative flex items-center px-4 md:px-16 overflow-hidden"
           >
             <img
               src={item.imageURL}
@@ -66,23 +70,14 @@ const TrendSlide = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-pink-700"></div>
             <div className="relative">
-              <h2 className="text-white font-bold text-2xl mb-4">
+              <h2 className="text-white font-bold text-xl md:text-2xl mb-4">
                 {item.text}
               </h2>
-              <div className="space-x-4 flex">
-                <button className="font-bold flex items-center bg-white rounded-full py-2 px-5 text-blue-500 tracking-wide">
-                  <span className="mr-2">読む</span>
-                  <PlayIcon className="w-7 h-7 -mr-3" />
-                </button>
-              </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      <div
-        id="pagination"
-        className="mt-6 flex justify-center mt-6 space-x-4"
-      />
+      <div id="pagination" className="mt-6 flex justify-center space-x-4" />
     </div>
   );
 };

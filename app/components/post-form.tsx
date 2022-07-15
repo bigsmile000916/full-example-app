@@ -6,7 +6,6 @@ import toast from 'react-hot-toast';
 import Button from '../components/button';
 import ImageEditor from '../components/image-editor';
 import Input from '../components/input';
-import PageTitle from '../components/page-title';
 import Select from '../components/select';
 import TextArea from '../components/textarea';
 import { useRequireAuth } from '../lib/auth';
@@ -75,8 +74,8 @@ const PostForm: FC<{
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="grid grid-cols-3 gap-4">
-      <div className="col-span-2 space-y-4">
+    <form onSubmit={handleSubmit(submit)} className="grid md:grid-cols-3 gap-4">
+      <div className="md:col-span-2 space-y-4">
         <div>
           <Input
             name="title"
@@ -106,7 +105,7 @@ const PostForm: FC<{
         </div>
       </div>
 
-      <div className="col-span-1 space-y-4">
+      <div className="md:col-span-1 space-y-4">
         <ImageEditor
           name="coverUrl"
           type="cover"

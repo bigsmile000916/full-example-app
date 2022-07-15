@@ -7,12 +7,13 @@ import PostCard from '../components/post-card';
 import TrendSlide from '../components/trend-slide';
 import TrendUserList from '../components/trend-user-list';
 import { mockTrendPosts } from '../lib/mock';
+import { CategoryOptions } from '../lib/post';
 import { NextPageWithLayout } from './_app';
 
 export const getStaticProps: GetStaticProps<{
   trendPosts: Post[];
   trendUsers: User[];
-}> = async (context) => {
+}> = async () => {
   return {
     revalidate: 6000,
     props: {
@@ -31,35 +32,25 @@ const Home: NextPageWithLayout<
         <div className="col-span-3 xl:col-span-2">
           <TrendSlide />
 
-          <div className="flex items-center mt-8 mb-6">
-            <h2 className="text-slate-200 font-bold text-2xl flex-1">
+          <div className="md:flex items-center mt-8 mb-6">
+            <h2 className="font-bold text-2xl flex-1 mb-4 md:mb-0">
               人気の記事
             </h2>
-            <ul className="flex items-center text-slate-500">
-              <li>
-                <button className="p-2 rounded-full hover:bg-slate-800 min-w-[80px]">
-                  すべて
-                </button>
+            <ul className="flex items-center text-slate-500 text-sm md:text-base">
+              <li className="mr-4">
+                <button className="hover:text-slate-300">すべて</button>
               </li>
-              <li>
-                <button className="p-2 rounded-full hover:bg-slate-800 min-w-[80px]">
-                  テクノロジー
-                </button>
-              </li>
-              <li>
-                <button className="p-2 rounded-full hover:bg-slate-800 min-w-[80px]">
-                  エンタメ
-                </button>
-              </li>
-              <li>
-                <button className="p-2 rounded-full hover:bg-slate-800 min-w-[80px]">
-                  政治
-                </button>
-              </li>
+              {CategoryOptions.map((category) => (
+                <li className="mr-4" key={category.value}>
+                  <button className="hover:text-slate-300">
+                    {category.label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             {trendPosts.map((post) => (
               <PostCard post={post} key={post.id} />
             ))}
@@ -67,10 +58,8 @@ const Home: NextPageWithLayout<
         </div>
         <div className="col-span-3 xl:col-span-1">
           <div className="top-6 sticky">
-            <div className="bg-slate-800 rounded-2xl p-8">
-              <h2 className="font-bold text-white text-lg mb-6">
-                最近参加したユーザー
-              </h2>
+            <div className="dark:bg-slate-800 bg-slate-200 rounded-2xl p-8">
+              <h2 className="font-bold text-lg mb-6">最近参加したユーザー</h2>
               <TrendUserList />
             </div>
           </div>

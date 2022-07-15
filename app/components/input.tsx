@@ -27,7 +27,7 @@ const Input = <T,>({
   return (
     <div>
       {label && (
-        <label htmlFor={name}>
+        <label className="mb-1 block" htmlFor={name}>
           {label}
           {rules?.required && '*'}
         </label>
@@ -36,7 +36,7 @@ const Input = <T,>({
         type="text"
         id={name}
         className={classNames(
-          'block border bg-transparent px-2 py-2 rounded-md w-full',
+          'block border border-slate-500 bg-transparent px-2 py-2 rounded-md w-full',
           error ? 'border-red-500' : 'border-slate-500'
         )}
         {...props}
