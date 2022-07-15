@@ -9,12 +9,12 @@ import {
   SortBy,
   useInstantSearch,
 } from 'react-instantsearch-hooks-web';
-import AlgoliaWrapper from '../algolia/wrapper';
+import AlgoliaWrapper from '../lib/algolia/wrapper';
+import { getCategoryLabel } from '../lib/post';
 import Layout from '../components/layout';
 import PageTitle from '../components/page-title';
 import PostCard from '../components/post-card';
 import SearchBox from '../components/search-box';
-import { getCategoryLabel } from '../lib/post';
 import { NextPageWithLayout } from './_app';
 
 const SearchResults = () => {

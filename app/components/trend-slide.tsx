@@ -48,16 +48,8 @@ const TrendSlide = () => {
           keyboard
           loop
           navigation={{
-            enabled: false,
             nextEl: '#next',
             prevEl: '#prev',
-          }}
-          breakpoints={{
-            768: {
-              navigation: {
-                enabled: true,
-              },
-            },
           }}
           pagination={{
             clickable: true,
@@ -86,13 +78,13 @@ const TrendSlide = () => {
           ))}
         </Swiper>
         <button
-          className="absolute left-3 z-10 top-1/2 -translate-y-1/2"
+          className="hidden lg:block absolute left-3 z-10 top-1/2 -translate-y-1/2"
           id="prev"
         >
           <ChevronLeftIcon className="w-10 h-10 text-slate-200" />
         </button>
         <button
-          className="absolute right-3 z-10 top-1/2 -translate-y-1/2"
+          className="hidden lg:block absolute right-3 z-10 top-1/2 -translate-y-1/2"
           id="next"
         >
           <ChevronRightIcon className="w-10 h-10 text-slate-200" />

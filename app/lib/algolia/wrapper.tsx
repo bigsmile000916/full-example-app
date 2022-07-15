@@ -1,9 +1,6 @@
 import algoliasearch from 'algoliasearch/lite';
 import { FC, ReactNode } from 'react';
-import {
-  InstantSearch,
-  InstantSearchProps,
-} from 'react-instantsearch-hooks-web';
+import { InstantSearch } from 'react-instantsearch-hooks-web';
 
 export const searchClient = algoliasearch(
   'EA4MJUGYGP',
