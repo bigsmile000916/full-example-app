@@ -1,13 +1,12 @@
 import { faker } from '@faker-js/faker';
-import { PlayIcon } from '@heroicons/react/solid';
 import { useEffect, useState } from 'react';
 import { Keyboard, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 
 type Slide = {
   text: string;
@@ -90,13 +89,13 @@ const TrendSlide = () => {
           className="absolute left-3 z-10 top-1/2 -translate-y-1/2"
           id="prev"
         >
-          <ChevronLeftIcon className="w-10 h-10 text-blue-500" />
+          <ChevronLeftIcon className="w-10 h-10 text-slate-200" />
         </button>
         <button
           className="absolute right-3 z-10 top-1/2 -translate-y-1/2"
           id="next"
         >
-          <ChevronRightIcon className="w-10 h-10 text-blue-500" />
+          <ChevronRightIcon className="w-10 h-10 text-slate-200" />
         </button>
       </div>
       <div id="pagination" className="mt-6 flex justify-center space-x-4" />
