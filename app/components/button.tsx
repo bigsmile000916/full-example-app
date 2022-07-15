@@ -27,7 +27,7 @@ const Button = forwardRef<
 
   const className = classNames(
     styles[props.level || 'primary'],
-    'px-4 py-2 rounded-full min-w-[80px] text-center inline-block',
+    'px-4 py-2 rounded-full min-w-[80px] text-center inline-block disabled:opacity-30',
     props.className
   );
 
