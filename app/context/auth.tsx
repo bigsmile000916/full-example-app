@@ -26,7 +26,10 @@ export const AuthProvider: FC<{
   const [user, setUser] = useState<User | null>();
 
   useEffect(() => {
-    return onAuthStateChanged(auth, (fbUser) => setFbUser(fbUser));
+    return onAuthStateChanged(auth, (fbUser) => {
+      setFbUser(fbUser);
+      setUser(undefined);
+    });
   }, []);
 
   useEffect(() => {

@@ -52,7 +52,7 @@ const Search: NextPageWithLayout = () => {
 
   return (
     <div className="container">
-      <div className="md:hidden mb-6">
+      <div className="lg:hidden mb-6">
         <SearchBox />
       </div>
 

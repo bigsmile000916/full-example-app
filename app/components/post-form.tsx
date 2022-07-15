@@ -74,8 +74,8 @@ const PostForm: FC<{
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="grid md:grid-cols-3 gap-4">
-      <div className="md:col-span-2 space-y-4">
+    <form onSubmit={handleSubmit(submit)} className="grid lg:grid-cols-3 gap-4">
+      <div className="lg:col-span-2 space-y-4">
         <div>
           <Input
             name="title"
@@ -105,7 +105,7 @@ const PostForm: FC<{
         </div>
       </div>
 
-      <div className="md:col-span-1 space-y-4">
+      <div className="lg:col-span-1 space-y-4">
         <ImageEditor
           name="coverUrl"
           type="cover"

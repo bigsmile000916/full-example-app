@@ -54,7 +54,7 @@ const PostDetail: NextPageWithLayout<
       <NextSeo title={post.title} />
 
       {post.authorId == user?.id && (
-        <div className="text-right mb-4 hidden md:block">
+        <div className="text-right mb-4 hidden lg:block">
           <Button level="secondary" href={`/posts/${post.id}/edit`}>
             編集
           </Button>
@@ -68,13 +68,13 @@ const PostDetail: NextPageWithLayout<
             alt=""
           />
         ) : (
-          <span className="aspect-square md:aspect-[4/1] w-full block" />
+          <span className="aspect-square lg:aspect-[4/1] w-full block" />
         )}
 
         <div className="absolute rounded-lg bottom-0 top-0 inset-x-0 from-black bg-gradient-to-tr" />
 
         <div className="absolute bottom-6 inset-x-6">
-          <h1 className="font-bold text-lg md:text-2xl mb-4 text-white">
+          <h1 className="font-bold text-lg lg:text-2xl mb-4 text-white">
             {post.title}
           </h1>
           <div className="flex items-center">

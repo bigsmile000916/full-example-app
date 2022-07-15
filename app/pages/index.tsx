@@ -32,11 +32,11 @@ const Home: NextPageWithLayout<
         <div className="col-span-3 xl:col-span-2">
           <TrendSlide />
 
-          <div className="md:flex items-center mt-8 mb-6">
-            <h2 className="font-bold text-2xl flex-1 mb-4 md:mb-0">
+          <div className="lg:flex items-center mt-8 mb-6">
+            <h2 className="font-bold text-2xl flex-1 mb-4 lg:mb-0">
               人気の記事
             </h2>
-            <ul className="flex items-center text-slate-500 text-sm md:text-base">
+            <ul className="flex items-center text-slate-500 text-sm lg:text-base">
               <li className="mr-4">
                 <button className="hover:text-slate-300">すべて</button>
               </li>
@@ -50,7 +50,7 @@ const Home: NextPageWithLayout<
             </ul>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid lg:grid-cols-2 gap-4">
             {trendPosts.map((post) => (
               <PostCard post={post} key={post.id} />
             ))}

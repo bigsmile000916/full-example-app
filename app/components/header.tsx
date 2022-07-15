@@ -13,13 +13,13 @@ const Header: FC<{
 
   return (
     <div className="flex items-center relative z-10 container">
-      <button className="md:hidden" onClick={handleMenuClick}>
+      <button className="lg:hidden" onClick={handleMenuClick}>
         <MenuIcon className="w-5 h-5" />
       </button>
-      <div className="md:hidden w-32 ml-2">
+      <div className="lg:hidden w-32 ml-2">
         <Logo />
       </div>
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <SearchBox />
       </div>
       <span className="flex-1"></span>

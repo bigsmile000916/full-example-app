@@ -23,10 +23,10 @@ const Layout: FC<{
 
   return (
     <div>
-      <div className="hidden md:block w-80 fixed inset-y-0">
+      <div className="hidden lg:block w-80 fixed inset-y-0">
         <SideNav open={open} onClose={() => setOpen(false)} />
       </div>
-      <div className="md:pl-80 pt-6 pb-10">
+      <div className="lg:pl-80 pt-6 pb-10">
         <div className="mb-6">
           <Header handleMenuClick={() => setOpen(true)} />
         </div>

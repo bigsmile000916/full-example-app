@@ -12,7 +12,7 @@ const UsersPostList: FC<{
   }
 
   return (
-    <ul className="grid md:grid-cols-2 gap-4">
+    <ul className="grid lg:grid-cols-2 gap-4">
       {posts?.map((post) => (
         <li key={post.id}>
           <PostCard post={post} />

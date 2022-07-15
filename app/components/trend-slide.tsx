@@ -69,7 +69,7 @@ const TrendSlide = () => {
           {items.map((item, i) => (
             <SwiperSlide
               key={i}
-              className="md:aspect-[16/6] aspect-video rounded-3xl relative flex items-center px-4 md:px-16 overflow-hidden"
+              className="lg:aspect-[16/6] aspect-video rounded-3xl relative flex items-center px-4 lg:px-16 overflow-hidden"
             >
               <img
                 src={item.imageURL}
@@ -78,7 +78,7 @@ const TrendSlide = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-pink-700"></div>
               <div className="relative">
-                <h2 className="text-white font-bold text-xl md:text-2xl">
+                <h2 className="text-white font-bold text-xl lg:text-2xl">
                   {item.text}
                 </h2>
               </div>

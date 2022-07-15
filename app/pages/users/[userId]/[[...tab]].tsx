@@ -87,7 +87,7 @@ const Profile: NextPageWithLayout<
           <Button
             level="secondary"
             href="/profile/edit"
-            className="hidden md:block"
+            className="hidden lg:block"
           >
             編集
           </Button>

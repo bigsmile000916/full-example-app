@@ -55,7 +55,7 @@ const SideMenu = () => {
     {
       icon: UserIcon,
       label: 'プロフィール',
-      href: `/users/${user?.id}`,
+      href: user ? `/users/${user?.id}` : '/signin',
     },
   ];
 
@@ -109,11 +109,11 @@ const SideNav: FC<{
       <Dialog
         open={open}
         as="div"
-        className="relative md:hidden z-40"
+        className="relative lg:hidden z-40"
         onClose={onClose}
       >
         <div className="fixed inset-0 bg-black/25" />
-        <Dialog.Panel className="fixed inset-y-0 w-[80%]">
+        <Dialog.Panel className="fixed inset-y-0 w-80">
           <SideMenu />
         </Dialog.Panel>
       </Dialog>

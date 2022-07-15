@@ -8,7 +8,7 @@ const SigninSignupForm: FC<{
 }> = ({ mode }) => {
   return (
     <div className="flex items-center justify-center h-screen bg-[url(/background.jpg)] bg-center bg-cover">
-      <div className="text-center mx-4 px-10 py-20 rounded-md shadow-lg from-slate-900 bg-gradient-to-t to-slate-800 max-w-md w-full">
+      <div className="text-center mx-4 px-10 py-20 rounded-md shadow-lg from-slate-200 to-slate-100 dark:from-slate-900 bg-gradient-to-t dark:to-slate-800 max-w-md w-full">
         <div className="mb-10 flex justify-center">
           <Logo />
         </div>
@@ -19,14 +19,14 @@ const SigninSignupForm: FC<{
           Google で{mode === 'signin' ? 'ログイン' : 'アカウント作成'}
         </button>
         {mode === 'signin' ? (
-          <p className="text-slate-400 text-sm pt-10 mt-10 border-t border-slate-800">
+          <p className="dark:text-slate-400 text-slate-800 text-sm pt-10 mt-10 border-t dark:border-slate-800 border-slate-300">
             アカウントがまだありませんか？
             <Link href="/signup">
               <a className="text-blue-500">アカウントを作成</a>
             </Link>
           </p>
         ) : (
-          <p className="text-slate-400 text-sm pt-10 mt-10 border-t border-slate-800">
+          <p className="dark:text-slate-400 text-slate-800 text-sm pt-10 mt-10 border-t dark:border-slate-800 border-slate-300">
             アカウントが既にありますか？
             <Link href="/signin">
               <a className="text-blue-500">ログイン</a>

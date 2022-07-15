@@ -17,7 +17,7 @@ const SearchBox = () => {
   return (
     <form
       onSubmit={handleSubmit(search)}
-      className="rounded-md dark:bg-slate-800 bg-slate-200 max-w-full w-96 flex items-center px-3 focus-within:ring-2"
+      className="rounded-md dark:bg-slate-800 bg-slate-200 w-full max-w-96 flex items-center px-3 focus-within:ring-2"
     >
       <button>
         <SearchIcon className="w-5 h-5 text-slate-400" />

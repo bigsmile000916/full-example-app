@@ -1,7 +1,4 @@
-import { User } from '@shared/types/user';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
 import Logo from '../components/logo';
 import PageTitle from '../components/page-title';
 import SigninSignupForm from '../components/signin-signup-form';
@@ -11,7 +8,6 @@ import { useAuth } from '../context/auth';
 const Signup = () => {
   const { fbUser, isLoading, user } = useAuth();
   const router = useRouter();
-  const { register, control } = useForm<User>();
 
   if (isLoading) {
     return null;
@@ -25,6 +21,8 @@ const Signup = () => {
   if (!fbUser) {
     return <SigninSignupForm mode="signup" />;
   }
+
+  console.log(user);
 
   return (
     <div className="container py-10">
