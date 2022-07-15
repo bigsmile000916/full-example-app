@@ -1,11 +1,14 @@
 import { Contact } from '@shared/types/contact';
+import { httpsCallable } from 'firebase/functions';
 import React, { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import Button from '../components/button';
 import Input from '../components/input';
 import Layout from '../components/layout';
 import PageTitle from '../components/page-title';
 import TextArea from '../components/textarea';
+import { functions } from '../lib/firebase/client';
 import { formErrorMessages } from '../lib/validate';
 import { NextPageWithLayout } from './_app';
 
@@ -13,11 +16,20 @@ const ContactPage: NextPageWithLayout = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { isSubmitting },
   } = useForm<Contact>();
 
   const submit = (data: Contact) => {
-    console.log(data);
+    const callable = httpsCallable<Contact>(functions, 'sendContact');
+    return callable(data)
+      .then(() => {
+        toast.success('送信しました');
+        reset();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -28,6 +40,7 @@ const ContactPage: NextPageWithLayout = () => {
           label="名前"
           autoComplete="name"
           name="name"
+          defaultValue=""
           control={control}
           rules={{ required: formErrorMessages.required }}
         />
@@ -38,14 +51,25 @@ const ContactPage: NextPageWithLayout = () => {
           type="text"
           name="email"
           control={control}
+          defaultValue=""
           rules={{
             required: formErrorMessages.required,
           }}
         />
 
+        <Input
+          label="タイトル"
+          autoComplete="off"
+          name="title"
+          defaultValue=""
+          control={control}
+          rules={{ required: formErrorMessages.required }}
+        />
+
         <TextArea
           label="内容"
           name="body"
+          defaultValue=""
           control={control}
           rows={10}
           rules={{

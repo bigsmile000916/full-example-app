@@ -36,8 +36,6 @@ export const getStaticProps: GetStaticProps<{
 }> = async (context) => {
   const snap = await adminDB.doc(`users/${context.params?.userId}`).get();
 
-  console.log(snap.data());
-
   return {
     revalidate: 60,
     props: {

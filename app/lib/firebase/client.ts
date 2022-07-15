@@ -32,7 +32,7 @@ if (!getApps().length) {
 }
 
 export const db = getFirestore();
-export const functions = getFunctions();
+export const functions = getFunctions(undefined, 'asia-northeast1');
 export const auth = getAuth();
 export const storage = getStorage();
 

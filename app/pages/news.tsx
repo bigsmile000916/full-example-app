@@ -18,6 +18,7 @@ export const getStaticProps: GetStaticProps<{
   const posts = snap.docs.map((doc) => doc.data() as Post);
 
   return {
+    revalidate: 10,
     props: {
       posts,
     },

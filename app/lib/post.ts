@@ -101,8 +101,6 @@ export const updatePost = async (id: string, data: Partial<Post>) => {
     ...data,
   };
 
-  console.log(post);
-
   return updateDoc(ref, post);
 };
 

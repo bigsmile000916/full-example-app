@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "example-full-app"
-  }
+    "default": "full-example"
+  },
+  "targets": {},
+  "etags": {}
 }

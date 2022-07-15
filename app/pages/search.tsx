@@ -22,7 +22,7 @@ const SearchResults = () => {
 
   return (
     <div>
-      {results.query && (
+      {results?.query && (
         <div className="text-center mb-6">
           <PageTitle>「{results.query}」の検索結果</PageTitle>
           {results?.nbHits ? (
@@ -73,16 +73,6 @@ const Search: NextPageWithLayout = () => {
             </div>
           </div>
           <div className="col-span-1 space-y-6">
-            {/* <div>
-              <h2 className="mb-4">キーワード</h2>
-              <SearchBox
-                queryHook={debounce(search, 1000)}
-                classNames={{
-                  input: 'rounded bg-transparent w-full',
-                }}
-              />
-            </div> */}
-
             <div>
               <h2 className="mb-4">並び替え</h2>
               <SortBy

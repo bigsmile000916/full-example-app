@@ -15,7 +15,7 @@ export const getStaticProps: GetStaticProps<{
   trendUsers: User[];
 }> = async () => {
   return {
-    revalidate: 6000,
+    revalidate: 60,
     props: {
       trendPosts: mockTrendPosts,
       trendUsers: [],
