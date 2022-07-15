@@ -1,17 +1,18 @@
 import Link from 'next/link';
 
+import { Dialog } from '@headlessui/react';
 import {
-  HeartIcon,
   HomeIcon,
   LogoutIcon,
   RssIcon,
   SearchIcon,
   UserIcon,
 } from '@heroicons/react/outline';
-import Logo from './logo';
-import SideNavItem from './side-nav-item';
+import { FC } from 'react';
 import { useAuth } from '../context/auth';
 import { logout } from '../lib/auth';
+import Logo from './logo';
+import SideNavItem from './side-nav-item';
 
 const subItems = [
   {
@@ -32,7 +33,7 @@ const subItems = [
   },
 ];
 
-const SideNav = () => {
+const SideMenu = () => {
   const { user } = useAuth();
 
   const mainItems = [
@@ -59,7 +60,7 @@ const SideNav = () => {
   ];
 
   return (
-    <div className="bg-slate-800 shadow p-12 text-white h-screen overflow-auto sticky top-0">
+    <div className="bg-slate-800 shadow p-12 text-white h-full overflow-auto">
       <div className="overflow-auto flex min-h-full flex-col">
         <p className="mb-10">
           <Logo />
@@ -88,12 +89,37 @@ const SideNav = () => {
         {user && (
           <button
             onClick={logout}
-            className="flex space-x-4 py-4 text-pink-700"
+            className="flex mt-10 space-x-4 py-4 text-pink-700"
           >
             <LogoutIcon className="w-6 h-6" />
             <span>ログアウト</span>
           </button>
         )}
+      </div>
+    </div>
+  );
+};
+
+const SideNav: FC<{
+  open: boolean;
+  onClose: VoidFunction;
+}> = ({ open, onClose }) => {
+  return (
+    <div>
+      <Dialog
+        open={open}
+        as="div"
+        className="relative md:hidden z-40"
+        onClose={onClose}
+      >
+        <div className="fixed inset-0 bg-black/25" />
+        <Dialog.Panel className="fixed inset-y-0 w-[80%]">
+          <SideMenu />
+        </Dialog.Panel>
+      </Dialog>
+
+      <div className="fixed inset-y-0 w-80">
+        <SideMenu />
       </div>
     </div>
   );
