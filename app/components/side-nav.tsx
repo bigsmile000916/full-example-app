@@ -72,7 +72,7 @@ const SideMenu = () => {
               <SideNavItem item={item} key={item.href} />
             ))}
           </ul>
-          <ul className="mt-6 border-t border-slate-700 py-8 space-y-3 dark:text-slate-500">
+          <ul className="mt-6 border-t border-slate-300 py-8 space-y-3 dark:text-slate-500">
             {subItems.map((item) => (
               <li key={item.label}>
                 <Link href={item.href}>

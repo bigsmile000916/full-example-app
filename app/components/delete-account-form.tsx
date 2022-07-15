@@ -19,8 +19,8 @@ const DeleteAccountForm = () => {
 
   return (
     <div>
-      <h2 className="mb-4">アカウント削除</h2>
-      <p className="text-slate-200">ユーザーID({user.id})を入力してください</p>
+      <h2 className="text-lg mb-2">アカウント削除</h2>
+      <p>ユーザーID({user.id})を入力してください</p>
       <div className="flex mt-4">
         <Input
           name="name"

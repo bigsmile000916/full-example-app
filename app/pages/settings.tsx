@@ -1,8 +1,7 @@
 import { NextSeo } from 'next-seo';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import DeleteAccountForm from '../components/delete-account-form';
 import Layout from '../components/layout';
-import NewsletterSettings from '../components/newsletter-settings';
 import PageTitle from '../components/page-title';
 import { NextPageWithLayout } from './_app';
 
@@ -10,11 +9,13 @@ const Settings: NextPageWithLayout = () => {
   return (
     <div className="container">
       <NextSeo title="設定" />
-      <PageTitle>Settings</PageTitle>
+      <PageTitle>設定</PageTitle>
 
-      <div>
-        <NewsletterSettings />
-        <DeleteAccountForm />
+      <div className="space-y-10">
+        <div>{/* <NewsletterSettings /> */}</div>
+        <div>
+          <DeleteAccountForm />
+        </div>
       </div>
     </div>
   );

@@ -43,7 +43,7 @@ const UserForm: FC<{
 
     if (mode === 'create') {
       return createUser(fbUser.uid, data).then(() => {
-        toast.success('更新しました');
+        toast.success('アカウントを作成しました');
       });
     }
   };

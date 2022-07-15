@@ -1,16 +1,14 @@
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import { Post } from '@shared/types/post';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { onSnapshot, query, where } from 'firebase/firestore';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { ReactElement, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import Button from '../components/button';
 import Layout from '../components/layout';
 import PageTitle from '../components/page-title';
-import PostCard from '../components/post-card';
 import { useRequireAuth } from '../lib/auth';
-import { db, postCollection } from '../lib/firebase/client';
+import { postCollection } from '../lib/firebase/client';
 import { deletePost } from '../lib/post';
 import { NextPageWithLayout } from './_app';
 
@@ -37,15 +35,19 @@ const Manage: NextPageWithLayout = () => {
     }
   };
 
+  if (posts === undefined) {
+    return null;
+  }
+
   return (
     <div className="container">
       <NextSeo title="投稿管理" />
       <PageTitle>投稿管理</PageTitle>
 
       {posts?.length ? (
-        <ul className="">
+        <ul className="divide-y dark:divide-slate-600">
           {posts.map((post) => (
-            <li key={post.id} className="flex items-center space-x-2">
+            <li key={post.id} className="flex items-center space-x-2 py-2">
               <Link href={`/posts/${post.id}`}>
                 <a className="flex-1 hover:text-blue-500">{post.title}</a>
               </Link>
@@ -65,7 +67,7 @@ const Manage: NextPageWithLayout = () => {
         </ul>
       ) : (
         <div>
-          <p>まだ記事がありません。</p>
+          <p className="mb-4">まだ記事がありません。</p>
           <Button href="/new">投稿</Button>
         </div>
       )}

@@ -8,8 +8,8 @@ const SigninSignupForm: FC<{
 }> = ({ mode }) => {
   return (
     <div className="flex items-center justify-center h-screen bg-[url(/background.jpg)] bg-center bg-cover">
-      <div className="text-center px-10 py-20 rounded-md shadow-lg from-slate-900 bg-gradient-to-t to-slate-800 max-w-md w-full">
-        <div className="mb-10">
+      <div className="text-center mx-4 px-10 py-20 rounded-md shadow-lg from-slate-900 bg-gradient-to-t to-slate-800 max-w-md w-full">
+        <div className="mb-10 flex justify-center">
           <Logo />
         </div>
         <button
